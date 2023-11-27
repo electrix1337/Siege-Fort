@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -615,7 +615,6 @@ GameObject:
   m_Component:
   - component: {fileID: 942268290}
   - component: {fileID: 942268291}
-  - component: {fileID: 942268293}
   - component: {fileID: 942268292}
   m_Layer: 0
   m_Name: buildingManager
@@ -683,21 +682,6 @@ MonoBehaviour:
   - name: Defence
     active: 1
     buildingSerializeds: []
---- !u!114 &942268293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 942268289}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52b480c8343c23c4c9438a5b0ac5c976, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildingButton: {fileID: 1047291995}
-  sectionContainer: {fileID: 171795682}
-  inBuildingSection: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,7 +875,6 @@ GameObject:
   - component: {fileID: 1047291996}
   - component: {fileID: 1047291998}
   - component: {fileID: 1047291997}
-  - component: {fileID: 1047292000}
   - component: {fileID: 1047291999}
   - component: {fileID: 1047292001}
   m_Layer: 5
@@ -1013,21 +996,9 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: building
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1047292000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1047291995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44bbc4ccaa5d648419532426470e0b9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1047292001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1040,7 +1011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b4c16177db2bc44bb83672e8fea112a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonManager: {fileID: 0}
+  buttonManager: {fileID: 1578194827}
 --- !u!1 &1062318256
 GameObject:
   m_ObjectHideFlags: 0
@@ -1422,15 +1393,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1578194827}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f973a5a41ee9ea344a26cc7af18f5f45, type: 3}
+  m_Script: {fileID: 11500000, guid: 86927650f64c20d41814244884d5e035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingButton: {fileID: 0}
-  sectionContainer: {fileID: 0}
-  buttons:
+  triggers:
   - name: building
     active: 0
-    objects: []
+    objects:
+    - {fileID: 171795682}
 --- !u!1 &1641962982
 GameObject:
   m_ObjectHideFlags: 0
