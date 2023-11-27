@@ -15,7 +15,7 @@ public class UiBuildingComponent : MonoBehaviour
     [SerializeField] GameObject sectionContainer;
     [SerializeField] GameObject sectionButton;
     [SerializeField] GameObject buildingButton;
-    [SerializeField] GameObject activationManager;
+    [SerializeField] GameObject triggerManager;
 
     triggerManagerComponent triggerComponent;
     buildingInfoComponent buildingInfo;
@@ -25,7 +25,7 @@ public class UiBuildingComponent : MonoBehaviour
     private void Start()
     {
         buildingInfo = GetComponent<buildingInfoComponent>();
-        triggerComponent = activationManager.GetComponent<triggerManagerComponent>();
+        triggerComponent = triggerManager.GetComponent<triggerManagerComponent>();
 
         sectionRect = sectionContainer.GetComponent<Image>().rectTransform;
 
@@ -53,9 +53,10 @@ public class UiBuildingComponent : MonoBehaviour
                 child.GetComponent<Text>().text = sectionUnlocked[i].name;//set the text on the image buttoN
 
                 //set button trigger
-                //triggerComponent.AddTrigger(,sectionUnlocked[i].name);
-                clone.GetComponent<Button>().onClick.AddListener(delegate 
-                    { triggerComponent.ClickEventSection(sectionUnlocked[i].name); });
+                clone.GetComponent<ClickEventComponent>().triggerManagerComponent = triggerComponent;
+                int i1 = i;
+                clone.GetComponent<Button>().onClick.AddListener(() =>  
+                     triggerComponent.ClickEventSection(sectionUnlocked[i1].name));
 
                 //transform the button
                 RectTransform transform = clone.GetComponent<Image>().rectTransform;

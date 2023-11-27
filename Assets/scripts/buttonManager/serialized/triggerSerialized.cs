@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 [System.Serializable]
-public enum TriggerType { Activation, Function }
 public class triggerSerialized
 {
-    public string subTriggerName;
+    public enum TriggerType { Activation, Function }
+    public string name;
+    public GameObject obj;
+
     public TriggerType type;
     public string componentName;
     public string functionName;
     public List<string> arguments;
-    public GameObject obj;
 }

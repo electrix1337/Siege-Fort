@@ -12,20 +12,31 @@ public class triggerManagerComponent : MonoBehaviour
     public void ClickEventSection(string triggerName)
     {
         buttonTriggerSerialized button = triggers.Find((obj) => obj.name == triggerName);
-        button.active = !button.active;
-
-        List<triggerSerialized> subTriggers = button.triggers;
-
-        for (int i = 0; i < subTriggers.Count; i++)
+        if (button != null)
         {
-            if (subTriggers[i].type == TriggerType.Activation)
+            button.active = !button.active;
+
+            List<triggerSerialized> subTriggers = button.triggers;
+
+            for (int i = 0; i < subTriggers.Count; i++)
             {
-                subTriggers[i].obj.SetActive(button.active);
+                //check the type of trigger triggering
+                if (subTriggers[i].type == TriggerType.Activation)
+                    subTriggers[i].obj.SetActive(button.active);
+                else if (subTriggers[i].type == TriggerType.Function)
+                {
+                    //if the function have any string arguments
+                    if (subTriggers[i].arguments.Count > 0)
+                        subTriggers[i].obj.GetComponent(subTriggers[i].componentName).SendMessage
+                            (subTriggers[i].functionName, subTriggers[i].arguments);
+                    else
+                        subTriggers[i].obj.GetComponent(subTriggers[i].componentName).SendMessage(subTriggers[i].functionName);
+                }
             }
-            else if (subTriggers[i].type == TriggerType.Function)
-            {
-                subTriggers[i].obj.GetComponent(subTriggers[i].componentName).SendMessage(subTriggers[i].functionName);
-            }
+        }
+        else
+        {
+            Debug.Log("The trigger named " +  triggerName + " doesn't exist!");
         }
     }
 
@@ -56,6 +67,6 @@ public class triggerManagerComponent : MonoBehaviour
         buttonTriggerSerialized button = triggers.Find((obj) => obj.name == triggerName);
 
         for (int i = 0; i < triggersToRemove.Count; ++i)
-            button.triggers.Remove(button.triggers.Find((Obj) => triggersToRemove[i] == Obj.subTriggerName));
+            button.triggers.Remove(button.triggers.Find((Obj) => triggersToRemove[i] == Obj.name));
     }
 }

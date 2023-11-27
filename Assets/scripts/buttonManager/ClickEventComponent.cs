@@ -5,16 +5,18 @@ using UnityEngine;
 
 public class ClickEventComponent : MonoBehaviour
 {
-    public GameObject buttonManager;
-
-
-    triggerManagerComponent buttonComponent;
+    [SerializeField] GameObject triggerManager;
+    
+    [System.NonSerialized]public triggerManagerComponent triggerManagerComponent;
     private void Start()
     {
-        buttonComponent = buttonManager.GetComponent<triggerManagerComponent>();
+        if (triggerManager != null)
+        {
+            triggerManagerComponent = triggerManager.GetComponent<triggerManagerComponent>();
+        }
     }
     public void OnClick(string buttonId)
     {
-        buttonComponent.ClickEventSection(buttonId);
+        triggerManagerComponent.ClickEventSection(buttonId);
     }
 }

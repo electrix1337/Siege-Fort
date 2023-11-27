@@ -227,7 +227,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 75, y: 45}
+  m_AnchoredPosition: {x: 75, y: 60}
   m_SizeDelta: {x: 150, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &171795684
@@ -653,7 +653,7 @@ MonoBehaviour:
   sectionContainer: {fileID: 171795682}
   sectionButton: {fileID: 3179235340794170291, guid: 689f14c0b03d02f4482739fc70b1d608, type: 3}
   buildingButton: {fileID: 1047291995}
-  activationManager: {fileID: 0}
+  activationManager: {fileID: 1578194827}
 --- !u!114 &942268292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1404,8 +1404,16 @@ MonoBehaviour:
   triggers:
   - name: building
     active: 0
-    objects:
-    - {fileID: 171795682}
+    triggers:
+    - name: buildingSelection
+      obj: {fileID: 171795682}
+      type: 0
+      componentName: 
+      functionName: 
+      arguments: []
+  - name: autre
+    active: 0
+    triggers: []
 --- !u!1 &1641962982
 GameObject:
   m_ObjectHideFlags: 0
