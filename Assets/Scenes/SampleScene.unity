@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -879,7 +879,6 @@ GameObject:
   - component: {fileID: 1047291996}
   - component: {fileID: 1047291998}
   - component: {fileID: 1047291997}
-  - component: {fileID: 1047292000}
   - component: {fileID: 1047291999}
   - component: {fileID: 1047292001}
   m_Layer: 5
@@ -1004,18 +1003,6 @@ MonoBehaviour:
           m_StringArgument: building
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1047292000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1047291995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44bbc4ccaa5d648419532426470e0b9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1047292001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1413,7 +1400,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86927650f64c20d41814244884d5e035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggers: []
+  triggers:
+  - name: building
+    active: 0
+    objects:
+    - {fileID: 171795682}
 --- !u!1 &1641962982
 GameObject:
   m_ObjectHideFlags: 0

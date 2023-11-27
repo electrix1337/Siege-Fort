@@ -43,7 +43,7 @@ public class UiBuildingComponent : MonoBehaviour
         for (int i = 0; i < sectionUnlocked.Count(); ++i)
         {
 
-            if (SectionShowed.Exists((obj) => obj.Item1 == sectionUnlocked[i].name))
+            if (!(SectionShowed.Exists((obj) => obj.Item1 == sectionUnlocked[i].name)))
             {
                 GameObject clone = Instantiate(sectionButton, sectionContainer.transform);
                 Transform child = clone.transform.GetChild(0);
