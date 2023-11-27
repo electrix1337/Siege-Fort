@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -16,11 +17,14 @@ public class UiBuildingComponent : MonoBehaviour
     [SerializeField] GameObject sectionButton;
     [SerializeField] GameObject buildingButton;
     [SerializeField] GameObject triggerManager;
+    [SerializeField] GameObject buildingSelection;
+    [SerializeField] GameObject prefabBuildingUI;
 
     triggerManagerComponent triggerComponent;
     buildingInfoComponent buildingInfo;
     RectTransform sectionRect;
-    List<(string, RectTransform)> SectionShowed = new List<(string, RectTransform)>();
+    List<(string, Transform, List<(string, Transform)>)> SectionShowed = new List<(string, Transform, List<(string, Transform)>)>();
+    List<GameObject> sections = new List<GameObject>();
 
     private void Start()
     {
@@ -38,7 +42,7 @@ public class UiBuildingComponent : MonoBehaviour
         Button button = buildingButton.GetComponent<Button>();
     }
 
-    bool UnlockNewSection(List<buildingSectionSerialized> sectionUnlocked)
+    bool CreateNewSections(List<buildingSectionSerialized> sectionUnlocked)
     {
         bool unlockedSection = false;
         //loop and create new section that are meant to be created
@@ -60,18 +64,69 @@ public class UiBuildingComponent : MonoBehaviour
 
                 //transform the button
                 RectTransform transform = clone.GetComponent<Image>().rectTransform;
-                SectionShowed.Add((sectionUnlocked[i].name, transform));
+                SectionShowed.Add((sectionUnlocked[i].name, transform, new List<(string, Transform)>()));
                 unlockedSection = true;
+
+                //create the building section link to it
+                GameObject buildingSelection1 = new GameObject(sectionUnlocked[i].name);
+                buildingSelection1.transform.parent = buildingSelection.transform;
+                sections.Add(buildingSelection1);
+                //buildingSelection1.SetActive(false);
             }
+            UpdateBuildings(sectionUnlocked[i].name);
         }
         return unlockedSection;
+    }
+    //update the buildings
+    void UpdateBuildings(string sectionName)
+    {
+        CreateNewBuildings(sectionName);
+        PlaceBuilding(sectionName);
+    }
+
+    //change the position of the building
+    void PlaceBuilding(string sectionName)
+    {
+        const int sectionHeight = 30;
+
+        List<buildingInfoSerialized> buildings = buildingInfo.buildingsSections.Find((obj) => obj.name == sectionName).buildingsSerialized;
+        (string, Transform, List<(string, Transform)>) showedBuildingSection = SectionShowed.Find((obj) => obj.Item1 == sectionName);
+        for (int i = 0; i < buildings.Count; ++i)
+        {
+            if (buildings[i].unlocked)
+            {
+                Transform recTransform =
+                   showedBuildingSection.Item3.Find((obj) => obj.Item1 == buildings[i].name).Item2;
+
+                recTransform.localPosition = new Vector3(150 + 40 + Mathf.Floor(i / 2) * 80, 80 + (i % 2) * 100);
+            }
+        }
+    }
+    //create a new building button if you have a new building unlocked
+    void CreateNewBuildings(string sectionName)
+    {
+        List<buildingInfoSerialized> buildings = buildingInfo.buildingsSections.Find((obj) => obj.name == sectionName).buildingsSerialized;
+        for (int i = 0; i < buildings.Count; ++i)
+        {
+            (string, Transform, List<(string, Transform)>) showedBuildingList = SectionShowed.Find((obj) => obj.Item1 == sectionName);
+            if (buildings[i].unlocked &&
+                !showedBuildingList.Item3.Exists((obj) => obj.Item1 == buildings[i].name))
+            {
+                
+                GameObject clone = Instantiate(prefabBuildingUI, sections.Find((obj) => obj.name == sectionName).transform,
+                    showedBuildingList.Item2);
+                clone.name = buildings[i].name;
+                clone.transform.GetChild(1).GetComponent<RawImage>().texture = buildings[i].buildingImage;
+                clone.transform.GetChild(0).GetComponent<Text>().text = buildings[i].name;
+                showedBuildingList.Item3.Add((buildings[i].name, clone.transform));
+            }
+        }
     }
 
     void SetSections(List<buildingSectionSerialized> sectionUnlocked)
     {
         //loop and create new section that are meant to be created
-        bool unlockedSection = UnlockNewSection(sectionUnlocked);
-
+        bool unlockedSection = CreateNewSections(sectionUnlocked);
 
         if (unlockedSection)
         {
@@ -83,15 +138,17 @@ public class UiBuildingComponent : MonoBehaviour
         const int sectionHeight = 30;
         //this for loop is repeated to make sure that all section always stay in the same order (It can be more
         //efficient but the order wont be the same on multiple runs
+        int nbChange = 0;
         for (int i = 0; i < buildingInfo.Count; ++i)
         {
             if (buildingInfo.buildingsSections[i].active)
             {
                 //if the section exist in the active section list
-                RectTransform recTransform = 
+                Transform recTransform = 
                     SectionShowed.First(obj => obj.Item1 == buildingInfo.buildingsSections[i].name).Item2;
 
-                recTransform.localPosition = new Vector3(0, -(SectionShowed.Count * 30 / 2 - 15) + sectionHeight * i);
+                recTransform.localPosition = new Vector3(0, -(SectionShowed.Count * 30 / 2 - 15) + sectionHeight * nbChange);
+                nbChange++;
             }
         }
 

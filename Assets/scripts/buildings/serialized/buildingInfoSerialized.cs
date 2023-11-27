@@ -6,6 +6,7 @@ using UnityEngine;
 public class buildingInfoSerialized
 {
     public string name;
+    public bool unlocked = false;
     public GameObject building;
     public Texture buildingImage;
     public List<costSerialized> costs;

@@ -21,7 +21,7 @@ public class triggerManagerComponent : MonoBehaviour
             for (int i = 0; i < subTriggers.Count; i++)
             {
                 //check the type of trigger triggering
-                if (subTriggers[i].type == TriggerType.Activation)
+                if (subTriggers[i].type == TriggerType.Button)
                     subTriggers[i].obj.SetActive(button.active);
                 else if (subTriggers[i].type == TriggerType.Function)
                 {
@@ -32,6 +32,10 @@ public class triggerManagerComponent : MonoBehaviour
                     else
                         subTriggers[i].obj.GetComponent(subTriggers[i].componentName).SendMessage(subTriggers[i].functionName);
                 }
+                else if (subTriggers[i].type != TriggerType.Activate)
+                    subTriggers[i].obj.SetActive(true);
+                else if (subTriggers[i].type == TriggerType.Desactivate)
+                    subTriggers[i].obj.SetActive(false);
             }
         }
         else

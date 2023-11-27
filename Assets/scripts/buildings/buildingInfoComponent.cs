@@ -12,12 +12,12 @@ public class buildingInfoComponent : MonoBehaviour
 
     public List<buildingSectionSerialized> GetActiveBuildingSection()
     {
-        List<buildingSectionSerialized> sectionsUnlonked = new List<buildingSectionSerialized>();
+        List<buildingSectionSerialized> buildingsUnlocked = new List<buildingSectionSerialized>();
 
         for (int i = 0; i < buildingsSections.Count; ++i)
             if (buildingsSections[i].active)
-                sectionsUnlonked.Add(buildingsSections[i]);
+                buildingsUnlocked.Add(buildingsSections[i]);
 
-        return sectionsUnlonked;
+        return buildingsUnlocked;
     }
 }
