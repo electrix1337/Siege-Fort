@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ClickEventComponent : MonoBehaviour
 {
-    [SerializeField] GameObject buttonManager;
+    public GameObject buttonManager;
 
 
     triggerManagerComponent buttonComponent;

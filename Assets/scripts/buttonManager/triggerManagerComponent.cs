@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static triggerSerialized;
 
 public class triggerManagerComponent : MonoBehaviour
 {
@@ -11,20 +13,27 @@ public class triggerManagerComponent : MonoBehaviour
     {
         buttonTriggerSerialized button = triggers.Find((obj) => obj.name == triggerName);
         button.active = !button.active;
-        List<GameObject> objects = button.objects;
 
-        for (int i = 0; i < objects.Count; i++)
-            objects[i].SetActive(button.active);
+        List<triggerSerialized> subTriggers = button.triggers;
+
+        for (int i = 0; i < subTriggers.Count; i++)
+        {
+            if (subTriggers[i].type == TriggerType.Activation)
+            {
+                subTriggers[i].obj.SetActive(button.active);
+            }
+            else if (subTriggers[i].type == TriggerType.Function)
+            {
+                subTriggers[i].obj.GetComponent(subTriggers[i].componentName).SendMessage(subTriggers[i].functionName);
+            }
+        }
     }
 
-    public void AddTrigger(List<GameObject> triggersToAdd, string triggerName, bool active)
+    public void AddTrigger(List<triggerSerialized> triggersToAdd, string triggerName, bool active)
     {
         buttonTriggerSerialized buttonTrigger = new buttonTriggerSerialized();
         buttonTrigger.active = active;
         buttonTrigger.name = triggerName;
-
-        for (int i = 0; i < triggers.Count; i++)
-            triggersToAdd[i].SetActive(active);
 
         triggers.Add(buttonTrigger);
     }
@@ -34,19 +43,19 @@ public class triggerManagerComponent : MonoBehaviour
         triggers.Remove(triggers.Find((obj) => obj.name == triggerName));
     }
 
-    public void AddSubTriggers(string triggerName, List<GameObject> triggersToAdd)
+    public void AddSubTriggers(string triggerName, List<triggerSerialized> triggersToAdd)
     {
         buttonTriggerSerialized button = triggers.Find((obj) => obj.name == triggerName);
 
+        List<triggerSerialized> settedTriggers = new List<triggerSerialized>();
         for (int i = 0; i < triggersToAdd.Count; ++i)
-            button.objects.Add(triggersToAdd[i]);
+            button.triggers.Add(triggersToAdd[i]);
     }
-
-    public void RemoveSubTriggers(string triggerName, List<GameObject> triggersToRemove)
+    public void RemoveSubTriggers(string triggerName, List<string> triggersToRemove)
     {
         buttonTriggerSerialized button = triggers.Find((obj) => obj.name == triggerName);
 
         for (int i = 0; i < triggersToRemove.Count; ++i)
-            button.objects.Remove(triggersToRemove[i]);
+            button.triggers.Remove(button.triggers.Find((Obj) => triggersToRemove[i] == Obj.subTriggerName));
     }
 }

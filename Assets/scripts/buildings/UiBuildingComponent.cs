@@ -15,14 +15,17 @@ public class UiBuildingComponent : MonoBehaviour
     [SerializeField] GameObject sectionContainer;
     [SerializeField] GameObject sectionButton;
     [SerializeField] GameObject buildingButton;
+    [SerializeField] GameObject activationManager;
 
+    triggerManagerComponent triggerComponent;
+    buildingInfoComponent buildingInfo;
     RectTransform sectionRect;
     List<(string, RectTransform)> SectionShowed = new List<(string, RectTransform)>();
-    buildingInfoComponent buildingInfo;
 
     private void Start()
     {
         buildingInfo = GetComponent<buildingInfoComponent>();
+        triggerComponent = activationManager.GetComponent<triggerManagerComponent>();
 
         sectionRect = sectionContainer.GetComponent<Image>().rectTransform;
 
@@ -33,7 +36,6 @@ public class UiBuildingComponent : MonoBehaviour
         sectionContainer.SetActive(false);
 
         Button button = buildingButton.GetComponent<Button>();
-
     }
 
     bool UnlockNewSection(List<buildingSectionSerialized> sectionUnlocked)
@@ -43,12 +45,19 @@ public class UiBuildingComponent : MonoBehaviour
         for (int i = 0; i < sectionUnlocked.Count(); ++i)
         {
 
-            if (!(SectionShowed.Exists((obj) => obj.Item1 == sectionUnlocked[i].name)))
+            if (!SectionShowed.Exists((obj) => obj.Item1 == sectionUnlocked[i].name))
             {
+                //create the button game object
                 GameObject clone = Instantiate(sectionButton, sectionContainer.transform);
                 Transform child = clone.transform.GetChild(0);
-                child.GetComponent<Text>().text = sectionUnlocked[i].name;//set the text on the image button
+                child.GetComponent<Text>().text = sectionUnlocked[i].name;//set the text on the image buttoN
 
+                //set button trigger
+                //triggerComponent.AddTrigger(,sectionUnlocked[i].name);
+                clone.GetComponent<Button>().onClick.AddListener(delegate 
+                    { triggerComponent.ClickEventSection(sectionUnlocked[i].name); });
+
+                //transform the button
                 RectTransform transform = clone.GetComponent<Image>().rectTransform;
                 SectionShowed.Add((sectionUnlocked[i].name, transform));
                 unlockedSection = true;
@@ -65,7 +74,6 @@ public class UiBuildingComponent : MonoBehaviour
 
         if (unlockedSection)
         {
-            Debug.Log("salut");
             SetSectionTransform();
         } 
     }

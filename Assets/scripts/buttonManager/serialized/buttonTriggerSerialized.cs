@@ -7,5 +7,5 @@ public class buttonTriggerSerialized
 {
     public string name;
     public bool active = false;
-    public List<GameObject> objects;
+    public List<triggerSerialized> triggers;
 }
