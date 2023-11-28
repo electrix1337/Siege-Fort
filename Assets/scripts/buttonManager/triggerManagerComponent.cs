@@ -1,9 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static triggerSerialized;
 
+/* Button: The button trigger type will active the game object one time on 2
+ * Function: The function will call a specific function in a component of a game object
+ *      you can pass params in form of strings only
+ * Activate: The Activate trigger will always activate the object each time it is call
+ * Desactivate: The Desactivate trigger will always desactivate the object each time it trigger
+ */
+public enum TriggerType { Button, Function, Activate, Desactivate }
 public class triggerManagerComponent : MonoBehaviour
 {
     [SerializeField] List<buttonTriggerSerialized> triggers;
@@ -27,8 +31,7 @@ public class triggerManagerComponent : MonoBehaviour
                 {
                     //if the function have any string arguments
                     if (subTriggers[i].arguments.Count > 0)
-                        subTriggers[i].obj.GetComponent(subTriggers[i].componentName).SendMessage
-                            (subTriggers[i].functionName, subTriggers[i].arguments);
+                        subTriggers[i].obj.GetComponent(subTriggers[i].componentName).SendMessage(subTriggers[i].functionName, subTriggers[i].arguments);
                     else
                         subTriggers[i].obj.GetComponent(subTriggers[i].componentName).SendMessage(subTriggers[i].functionName);
                 }

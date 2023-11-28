@@ -7,7 +7,6 @@ using UnityEngine;
 [System.Serializable]
 public class triggerSerialized
 {
-    public enum TriggerType { Button, Function, Activate, Desactivate }
     public string name;
     public GameObject obj;
 

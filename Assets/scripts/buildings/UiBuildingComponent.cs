@@ -8,7 +8,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using static triggerSerialized;
+
 
 [RequireComponent(typeof(buildingInfoComponent))]
 public class UiBuildingComponent : MonoBehaviour
@@ -44,7 +44,7 @@ public class UiBuildingComponent : MonoBehaviour
     }
 
     //set trigger on a new section and on other section that are there
-    void setTriggers(string sectionName, GameObject newObject)
+    void setSectionTriggers(string sectionName, GameObject newObject)
     {
         List<triggerSerialized> triggers = new List<triggerSerialized>();
         triggerSerialized trigger = new triggerSerialized();
@@ -94,13 +94,6 @@ public class UiBuildingComponent : MonoBehaviour
                 Transform child = clone.transform.GetChild(0);
                 child.GetComponent<Text>().text = sectionUnlocked[i].name;//set the text on the image buttoN
 
-                //set button trigger
-                ClickEventComponent clickEventComponent = clone.GetComponent<ClickEventComponent>();
-                clickEventComponent.triggerManagerComponent = triggerComponent;
-                int i1 = i;
-                clone.GetComponent<Button>().onClick.AddListener(() =>
-                     clickEventComponent.OnClick(sectionUnlocked[i1].name));
-
 
                 //create the building section link to it
                 GameObject buildingSelection1 = new GameObject(sectionUnlocked[i].name);
@@ -108,7 +101,13 @@ public class UiBuildingComponent : MonoBehaviour
                 sections.Add(buildingSelection1);
                 buildingSelection1.SetActive(false);
 
-                setTriggers(sectionUnlocked[i1].name, buildingSelection1);
+                //set button trigger
+                setSectionTriggers(sectionUnlocked[i].name, buildingSelection1);
+                ClickEventComponent clickEventComponent = clone.GetComponent<ClickEventComponent>();
+                clickEventComponent.triggerManagerComponent = triggerComponent;
+                int i1 = i;
+                clone.GetComponent<Button>().onClick.AddListener(() =>
+                     clickEventComponent.OnClick(sectionUnlocked[i1].name));
 
                 //transform the button
                 RectTransform transform = clone.GetComponent<Image>().rectTransform;
@@ -123,11 +122,33 @@ public class UiBuildingComponent : MonoBehaviour
     void UpdateBuildings(string sectionName)
     {
         CreateNewBuildings(sectionName);
-        PlaceBuilding(sectionName);
+        SetBuilding(sectionName);
+    }
+
+    //set a trigger to build a new building
+    void SetBuildingTrigger(string buildingName, string sectionName)
+    {
+        List<triggerSerialized> triggers = new List<triggerSerialized>();
+        //settings for the trigger
+        triggerSerialized trigger = new triggerSerialized();
+        List<string> arguments = new List<string>();
+        arguments.Add(buildingName);
+        arguments.Add(sectionName);
+        string buildingButton = buildingName + "_button";
+        trigger.name = buildingButton;
+        trigger.obj = gameObject;
+        trigger.type = TriggerType.Function;
+        trigger.componentName = "PlacingBuildingComponent";
+        trigger.functionName = "PlacingBuilding";
+        trigger.arguments = arguments;
+        triggers.Add(trigger);
+
+        //add the trigger
+        triggerComponent.AddTrigger(triggers, buildingButton, false);
     }
 
     //change the position of the building
-    void PlaceBuilding(string sectionName)
+    void SetBuilding(string sectionName)
     {
         const int sectionHeight = 30;
 
@@ -151,16 +172,25 @@ public class UiBuildingComponent : MonoBehaviour
         for (int i = 0; i < buildings.Count; ++i)
         {
             (string, Transform, List<(string, Transform)>) showedBuildingList = SectionShowed.Find((obj) => obj.Item1 == sectionName);
+            string buildingName = buildings[i].name;
             if (buildings[i].unlocked &&
-                !showedBuildingList.Item3.Exists((obj) => obj.Item1 == buildings[i].name))
+                !showedBuildingList.Item3.Exists((obj) => obj.Item1 == buildingName))
             {
-                
+                //create a new building button
                 GameObject clone = Instantiate(prefabBuildingUI, sections.Find((obj) => obj.name == sectionName).transform,
                     showedBuildingList.Item2);
-                clone.name = buildings[i].name;
+                clone.name = buildingName;
                 clone.transform.GetChild(1).GetComponent<RawImage>().texture = buildings[i].buildingImage;
-                clone.transform.GetChild(0).GetComponent<Text>().text = buildings[i].name;
-                showedBuildingList.Item3.Add((buildings[i].name, clone.transform));
+                clone.transform.GetChild(0).GetComponent<Text>().text = buildingName;
+                showedBuildingList.Item3.Add((buildingName, clone.transform));
+
+                //set triggers for the building
+                SetBuildingTrigger(buildingName, sectionName);
+                ClickEventComponent clickEventComponent = clone.GetComponent<ClickEventComponent>();
+                clickEventComponent.triggerManagerComponent = triggerComponent;
+                string buildingButton = buildingName + "_button";
+                clone.GetComponent<Button>().onClick.AddListener(() =>
+                     clickEventComponent.OnClick(buildingButton));
             }
         }
     }
