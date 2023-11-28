@@ -32,7 +32,7 @@ public class triggerManagerComponent : MonoBehaviour
                     else
                         subTriggers[i].obj.GetComponent(subTriggers[i].componentName).SendMessage(subTriggers[i].functionName);
                 }
-                else if (subTriggers[i].type != TriggerType.Activate)
+                else if (subTriggers[i].type == TriggerType.Activate)
                     subTriggers[i].obj.SetActive(true);
                 else if (subTriggers[i].type == TriggerType.Desactivate)
                     subTriggers[i].obj.SetActive(false);
@@ -49,6 +49,7 @@ public class triggerManagerComponent : MonoBehaviour
         buttonTriggerSerialized buttonTrigger = new buttonTriggerSerialized();
         buttonTrigger.active = active;
         buttonTrigger.name = triggerName;
+        buttonTrigger.triggers = triggersToAdd;
 
         triggers.Add(buttonTrigger);
     }
@@ -60,11 +61,11 @@ public class triggerManagerComponent : MonoBehaviour
 
     public void AddSubTriggers(string triggerName, List<triggerSerialized> triggersToAdd)
     {
-        buttonTriggerSerialized button = triggers.Find((obj) => obj.name == triggerName);
+        buttonTriggerSerialized trigger = triggers.Find((obj) => obj.name == triggerName);
 
-        List<triggerSerialized> settedTriggers = new List<triggerSerialized>();
+        List <triggerSerialized> settedTriggers = new List<triggerSerialized>();
         for (int i = 0; i < triggersToAdd.Count; ++i)
-            button.triggers.Add(triggersToAdd[i]);
+            trigger.triggers.Add(triggersToAdd[i]);
     }
     public void RemoveSubTriggers(string triggerName, List<string> triggersToRemove)
     {

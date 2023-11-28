@@ -8,6 +8,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using static triggerSerialized;
 
 [RequireComponent(typeof(buildingInfoComponent))]
 public class UiBuildingComponent : MonoBehaviour
@@ -42,6 +43,42 @@ public class UiBuildingComponent : MonoBehaviour
         Button button = buildingButton.GetComponent<Button>();
     }
 
+    //set trigger on a new section and on other section that are there
+    void setTriggers(string sectionName, GameObject newObject)
+    {
+        List<triggerSerialized> triggers = new List<triggerSerialized>();
+        triggerSerialized trigger = new triggerSerialized();
+        trigger.name = sectionName;
+        trigger.obj = newObject;
+        trigger.type = TriggerType.Activate;
+        triggers.Add(trigger);
+
+        //trigger to desactivate 
+        List<triggerSerialized> SubTriggers = new List<triggerSerialized>();
+        triggerSerialized subTrigger = new triggerSerialized();
+        subTrigger.name = sectionName;
+        subTrigger.obj = newObject;
+        subTrigger.type = TriggerType.Desactivate;
+        SubTriggers.Add(subTrigger);
+        for (int i = 0; i < sections.Count; ++i)
+        {
+            if (sections[i].name != sectionName)
+            {
+                //desactivate all other menu that are already there
+                trigger = new triggerSerialized();
+                trigger.name = sections[i].name;
+                trigger.obj = sections[i];
+                trigger.type = TriggerType.Desactivate;
+                triggers.Add(trigger);
+
+                //desactivate this menu when entering other menu that are there
+                triggerComponent.AddSubTriggers(SectionShowed[i].Item1, SubTriggers);
+            }
+        }
+
+        triggerComponent.AddTrigger(triggers, sectionName, false);
+    }
+
     bool CreateNewSections(List<buildingSectionSerialized> sectionUnlocked)
     {
         bool unlockedSection = false;
@@ -53,25 +90,30 @@ public class UiBuildingComponent : MonoBehaviour
             {
                 //create the button game object
                 GameObject clone = Instantiate(sectionButton, sectionContainer.transform);
+                clone.name = sectionUnlocked[i].name;
                 Transform child = clone.transform.GetChild(0);
                 child.GetComponent<Text>().text = sectionUnlocked[i].name;//set the text on the image buttoN
 
                 //set button trigger
-                clone.GetComponent<ClickEventComponent>().triggerManagerComponent = triggerComponent;
+                ClickEventComponent clickEventComponent = clone.GetComponent<ClickEventComponent>();
+                clickEventComponent.triggerManagerComponent = triggerComponent;
                 int i1 = i;
-                clone.GetComponent<Button>().onClick.AddListener(() =>  
-                     triggerComponent.ClickEventSection(sectionUnlocked[i1].name));
+                clone.GetComponent<Button>().onClick.AddListener(() =>
+                     clickEventComponent.OnClick(sectionUnlocked[i1].name));
 
-                //transform the button
-                RectTransform transform = clone.GetComponent<Image>().rectTransform;
-                SectionShowed.Add((sectionUnlocked[i].name, transform, new List<(string, Transform)>()));
-                unlockedSection = true;
 
                 //create the building section link to it
                 GameObject buildingSelection1 = new GameObject(sectionUnlocked[i].name);
                 buildingSelection1.transform.parent = buildingSelection.transform;
                 sections.Add(buildingSelection1);
-                //buildingSelection1.SetActive(false);
+                buildingSelection1.SetActive(false);
+
+                setTriggers(sectionUnlocked[i1].name, buildingSelection1);
+
+                //transform the button
+                RectTransform transform = clone.GetComponent<Image>().rectTransform;
+                SectionShowed.Add((sectionUnlocked[i].name, transform, new List<(string, Transform)>()));
+                unlockedSection = true;
             }
             UpdateBuildings(sectionUnlocked[i].name);
         }

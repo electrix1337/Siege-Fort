@@ -7,7 +7,7 @@ public class ClickEventComponent : MonoBehaviour
 {
     [SerializeField] GameObject triggerManager;
     
-    [System.NonSerialized]public triggerManagerComponent triggerManagerComponent;
+    [System.NonSerialized] public triggerManagerComponent triggerManagerComponent;
     private void Start()
     {
         if (triggerManager != null)
