@@ -105,7 +105,7 @@ public partial class @IngameAsset: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""784824a0-358b-45bb-ac50-2d50c0630959"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
