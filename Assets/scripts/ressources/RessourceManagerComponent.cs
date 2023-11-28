@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ressourcesManagerComponent : MonoBehaviour
+public class RessourceManagerComponent : MonoBehaviour
 {
-    public List<ressourceSerialized> ressources;
+    public List<RessourceSerialized> ressources;
 
     private void Start()
     {
-        
+
     }
 }

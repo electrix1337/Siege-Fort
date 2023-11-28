@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -171,7 +171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 79364055}
   m_Layer: 0
-  m_Name: mine
+  m_Name: Mine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -536,6 +536,82 @@ Transform:
   m_Father: {fileID: 36932807}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &780455406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 780455407}
+  - component: {fileID: 780455409}
+  - component: {fileID: 780455408}
+  m_Layer: 5
+  m_Name: ressourcesTab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &780455407
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780455406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1641962983}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -15}
+  m_SizeDelta: {x: 0, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &780455408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780455406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.34117648, g: 0.16862746, b: 0.09803922, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &780455409
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780455406}
+  m_CullTransparentMesh: 1
 --- !u!1 &810903552
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,33 +826,51 @@ MonoBehaviour:
   - name: Economy
     active: 1
     buildingsSerialized:
-    - name: mine
+    - name: Mine
       unlocked: 1
       building: {fileID: 79364054}
       size: {x: 1, y: 1, z: 1}
       buildingImage: {fileID: 2800000, guid: e6798298de273ba4ebdc7aed6c4a1cb9, type: 3}
       costs: []
-    - name: salut
+    - name: Mine
       unlocked: 1
       building: {fileID: 79364054}
-      size: {x: 0, y: 0, z: 0}
+      size: {x: 1, y: 1, z: 1}
       buildingImage: {fileID: 2800000, guid: e6798298de273ba4ebdc7aed6c4a1cb9, type: 3}
       costs: []
-    - name: test
+    - name: Mine
       unlocked: 1
       building: {fileID: 79364054}
-      size: {x: 0, y: 0, z: 0}
+      size: {x: 1, y: 1, z: 1}
       buildingImage: {fileID: 2800000, guid: e6798298de273ba4ebdc7aed6c4a1cb9, type: 3}
+      costs: []
+  - name: Defence
+    active: 0
+    buildingsSerialized:
+    - name: 
+      unlocked: 0
+      building: {fileID: 0}
+      size: {x: 0, y: 0, z: 0}
+      buildingImage: {fileID: 0}
       costs: []
   - name: Research
     active: 1
-    buildingsSerialized: []
+    buildingsSerialized:
+    - name: 
+      unlocked: 0
+      building: {fileID: 0}
+      size: {x: 0, y: 0, z: 0}
+      buildingImage: {fileID: 0}
+      costs: []
   - name: Army
     active: 1
-    buildingsSerialized: []
-  - name: Defence
-    active: 0
-    buildingsSerialized: []
+    buildingsSerialized:
+    - name: 
+      unlocked: 0
+      building: {fileID: 0}
+      size: {x: 0, y: 0, z: 0}
+      buildingImage: {fileID: 0}
+      costs: []
 --- !u!114 &942268293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -918,6 +1012,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionAsset: {fileID: -944628639613478452, guid: cff80d3c69a89f141a51683d628c1f49, type: 3}
+  cameraSpeed: 10
+  speedUp: 10
 --- !u!1 &991377905
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,6 +1560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1544318598}
+  - component: {fileID: 1544318600}
   - component: {fileID: 1544318599}
   m_Layer: 0
   m_Name: ressourceManager
@@ -1496,14 +1593,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1544318597}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e87a9d7f55acd2439e0d16bd8d23b70, type: 3}
+  m_Script: {fileID: 11500000, guid: 5738fe1994939b94497dec155de9a689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ressources:
-  - name: 
-    startingRessources: 0
-    spawnRate: 
-    image: {fileID: 0}
+  ressources: []
+--- !u!114 &1544318600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544318597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9b1697dad48f947bec6e1f14bbd817, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ressourceComponent: {fileID: 0}
+  ressourcesInfo: []
 --- !u!1 &1578194827
 GameObject:
   m_ObjectHideFlags: 0
@@ -1551,22 +1658,13 @@ MonoBehaviour:
   triggers:
   - name: building
     active: 0
-    triggers:
-    - name: buildingSelection
+    subTriggers:
+    - name: Building
       obj: {fileID: 171795682}
       type: 0
       componentName: 
       functionName: 
       arguments: []
-    - name: buildings
-      obj: {fileID: 485557606}
-      type: 0
-      componentName: 
-      functionName: 
-      arguments: []
-  - name: autre
-    active: 0
-    triggers: []
 --- !u!1 &1641962982
 GameObject:
   m_ObjectHideFlags: 0
@@ -1601,6 +1699,7 @@ RectTransform:
   - {fileID: 917756673}
   - {fileID: 171795683}
   - {fileID: 485557607}
+  - {fileID: 780455407}
   m_Father: {fileID: 1223862316}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

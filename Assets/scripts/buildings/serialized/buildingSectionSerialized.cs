@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class buildingSectionSerialized
+public class BuildingSectionSerialized
 {
     public string name;
     public bool active;
-    public List<buildingInfoSerialized> buildingsSerialized;
+    public List<BuildingSerialized> buildingsSerialized;
 
-    public List<buildingInfoSerialized> GetUnlockedBuildings()
+    public List<BuildingSerialized> GetUnlockedBuildings()
     {
-        List<buildingInfoSerialized> sectionsUnlonked = new List<buildingInfoSerialized>();
+        List<BuildingSerialized> sectionsUnlonked = new List<BuildingSerialized>();
 
         for (int i = 0; i < buildingsSerialized.Count; ++i)
             if (buildingsSerialized[i].unlocked)

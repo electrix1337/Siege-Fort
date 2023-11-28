@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class buildingInfoComponent : MonoBehaviour
+public class BuildingInfoComponent : MonoBehaviour
 {
-    public List<buildingSectionSerialized> buildingsSections;
+    public List<BuildingSectionSerialized> buildingsSections;
 
     public int Count { get => buildingsSections.Count; }
 
-    public List<buildingSectionSerialized> GetActiveBuildingSection()
+    public List<BuildingSectionSerialized> GetActiveBuildingSection()
     {
-        List<buildingSectionSerialized> buildingsUnlocked = new List<buildingSectionSerialized>();
+        List<BuildingSectionSerialized> buildingsUnlocked = new List<BuildingSectionSerialized>();
 
         for (int i = 0; i < buildingsSections.Count; ++i)
             if (buildingsSections[i].active)

@@ -7,12 +7,12 @@ public class ClickEventComponent : MonoBehaviour
 {
     [SerializeField] GameObject triggerManager;
     
-    [System.NonSerialized] public triggerManagerComponent triggerManagerComponent;
+    [System.NonSerialized] public TriggerManagerComponent triggerManagerComponent;
     private void Start()
     {
         if (triggerManager != null)
         {
-            triggerManagerComponent = triggerManager.GetComponent<triggerManagerComponent>();
+            triggerManagerComponent = triggerManager.GetComponent<TriggerManagerComponent>();
         }
     }
     public void OnClick(string buttonId)

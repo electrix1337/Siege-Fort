@@ -1,26 +1,21 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/* Button: The button trigger type will active the game object one time on 2
- * Function: The function will call a specific function in a component of a game object
- *      you can pass params in form of strings only
- * Activate: The Activate trigger will always activate the object each time it is call
- * Desactivate: The Desactivate trigger will always desactivate the object each time it trigger
- */
 public enum TriggerType { Button, Function, Activate, Desactivate }
-public class triggerManagerComponent : MonoBehaviour
+public class TriggerManagerComponent : MonoBehaviour
 {
-    [SerializeField] List<buttonTriggerSerialized> triggers;
+    [SerializeField] List<TriggerSerialized> triggers;
 
 
     public void ClickEventSection(string triggerName)
     {
-        buttonTriggerSerialized button = triggers.Find((obj) => obj.name == triggerName);
+        TriggerSerialized button = triggers.Find((obj) => obj.name == triggerName);
         if (button != null)
         {
             button.active = !button.active;
 
-            List<triggerSerialized> subTriggers = button.triggers;
+            List<SubTriggerSerialized> subTriggers = button.subTriggers;
 
             for (int i = 0; i < subTriggers.Count; i++)
             {
@@ -43,16 +38,16 @@ public class triggerManagerComponent : MonoBehaviour
         }
         else
         {
-            Debug.Log("The trigger named " +  triggerName + " doesn't exist!");
+            Debug.Log("The trigger named " + triggerName + " doesn't exist!");
         }
     }
 
-    public void AddTrigger(List<triggerSerialized> triggersToAdd, string triggerName, bool active)
+    public void AddTrigger(string triggerName, List<SubTriggerSerialized> triggersToAdd, bool active)
     {
-        buttonTriggerSerialized buttonTrigger = new buttonTriggerSerialized();
+        TriggerSerialized buttonTrigger = new TriggerSerialized();
         buttonTrigger.active = active;
         buttonTrigger.name = triggerName;
-        buttonTrigger.triggers = triggersToAdd;
+        buttonTrigger.subTriggers = triggersToAdd;
 
         triggers.Add(buttonTrigger);
     }
@@ -62,19 +57,18 @@ public class triggerManagerComponent : MonoBehaviour
         triggers.Remove(triggers.Find((obj) => obj.name == triggerName));
     }
 
-    public void AddSubTriggers(string triggerName, List<triggerSerialized> triggersToAdd)
+    public void AddSubTriggers(string triggerName, List<SubTriggerSerialized> subTriggersToAdd)
     {
-        buttonTriggerSerialized trigger = triggers.Find((obj) => obj.name == triggerName);
+        TriggerSerialized trigger = triggers.Find((obj) => obj.name == triggerName);
 
-        List <triggerSerialized> settedTriggers = new List<triggerSerialized>();
-        for (int i = 0; i < triggersToAdd.Count; ++i)
-            trigger.triggers.Add(triggersToAdd[i]);
+        for (int i = 0; i < subTriggersToAdd.Count; ++i)
+            trigger.subTriggers.Add(subTriggersToAdd[i]);
     }
-    public void RemoveSubTriggers(string triggerName, List<string> triggersToRemove)
+    public void RemoveSubTriggers(string triggerName, List<string> subTriggersToRemove)
     {
-        buttonTriggerSerialized button = triggers.Find((obj) => obj.name == triggerName);
+        TriggerSerialized trigger = triggers.Find((obj) => obj.name == triggerName);
 
-        for (int i = 0; i < triggersToRemove.Count; ++i)
-            button.triggers.Remove(button.triggers.Find((Obj) => triggersToRemove[i] == Obj.name));
+        for (int i = 0; i < subTriggersToRemove.Count; ++i)
+            trigger.subTriggers.Remove(trigger.subTriggers.Find((Obj) => subTriggersToRemove[i] == Obj.name));
     }
 }

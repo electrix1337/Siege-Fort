@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(buildingInfoComponent))]
+[RequireComponent(typeof(BuildingInfoComponent))]
 public class PlacingBuildingComponent : MonoBehaviour
 {
+    [SerializeField] GameObject buildingFolder;
     [SerializeField] Camera camera;
     GameObject objectInHand = null;
-    buildingInfoComponent buildingInfo;
+    BuildingInfoComponent buildingInfo;
     Vector3 size;
     private void Start()
     {
-        buildingInfo = GetComponent<buildingInfoComponent>();
+        buildingInfo = GetComponent<BuildingInfoComponent>();
     }
 
     /* require 2 arguments:
@@ -24,10 +25,10 @@ public class PlacingBuildingComponent : MonoBehaviour
         if (Building.Count == 2)
         {
             Destroy(objectInHand);
-            buildingSectionSerialized buildingSection = buildingInfo.buildingsSections.Find((obj) => obj.name.Equals(Building[1]));
-            buildingInfoSerialized buildingInfoSerialized = buildingSection.buildingsSerialized.Find((obj) => obj.name == Building[0]);
+            BuildingSectionSerialized buildingSection = buildingInfo.buildingsSections.Find((obj) => obj.name.Equals(Building[1]));
+            BuildingSerialized buildingInfoSerialized = buildingSection.buildingsSerialized.Find((obj) => obj.name == Building[0]);
 
-            objectInHand = Instantiate(buildingInfoSerialized.building);
+            objectInHand = Instantiate(buildingInfoSerialized.building, buildingFolder.transform);
             size = buildingInfoSerialized.size;
             objectInHand.layer = 6;
         }

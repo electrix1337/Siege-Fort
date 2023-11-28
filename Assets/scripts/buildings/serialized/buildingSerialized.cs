@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class buildingSerialized
+public class BuildingSerialized
 {
-    public string Name;
-    public Texture Image;
+    public string name;
+    public bool unlocked = false;
+    public GameObject building;
+    public Vector3 size;
+    public Texture buildingImage;
+    public List<CostSerialized> costs;
 }

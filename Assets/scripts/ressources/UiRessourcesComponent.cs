@@ -4,5 +4,15 @@ using UnityEngine;
 
 public class UiRessourcesComponent : MonoBehaviour
 {
-    public List<ressourceSerialized> ressourcesInfo;
+    [SerializeField] GameObject ressourceComponent;
+    public List<RessourceSerialized> ressourcesInfo;
+    private void Start()
+    {
+        
+    }
+
+    void ChangeUi()
+    {
+
+    }
 }

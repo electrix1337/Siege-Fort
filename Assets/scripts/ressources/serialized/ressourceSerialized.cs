@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class ressourceSerialized
+public class RessourceSerialized
 {
     public string name;
     public int startingRessources;

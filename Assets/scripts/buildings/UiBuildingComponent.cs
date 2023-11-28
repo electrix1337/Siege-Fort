@@ -10,7 +10,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 
-[RequireComponent(typeof(buildingInfoComponent))]
+[RequireComponent(typeof(BuildingInfoComponent))]
 public class UiBuildingComponent : MonoBehaviour
 {
 
@@ -21,21 +21,21 @@ public class UiBuildingComponent : MonoBehaviour
     [SerializeField] GameObject buildingSelection;
     [SerializeField] GameObject prefabBuildingUI;
 
-    triggerManagerComponent triggerComponent;
-    buildingInfoComponent buildingInfo;
+    TriggerManagerComponent triggerComponent;
+    BuildingInfoComponent buildingInfo;
     RectTransform sectionRect;
     List<(string, Transform, List<(string, Transform)>)> SectionShowed = new List<(string, Transform, List<(string, Transform)>)>();
     List<GameObject> sections = new List<GameObject>();
 
     private void Start()
     {
-        buildingInfo = GetComponent<buildingInfoComponent>();
-        triggerComponent = triggerManager.GetComponent<triggerManagerComponent>();
+        buildingInfo = GetComponent<BuildingInfoComponent>();
+        triggerComponent = triggerManager.GetComponent<TriggerManagerComponent>();
 
         sectionRect = sectionContainer.GetComponent<Image>().rectTransform;
 
         //set all active section in a list of section unlocked
-        List<buildingSectionSerialized> sectionsUnlock = buildingInfo.GetActiveBuildingSection();
+        List<BuildingSectionSerialized> sectionsUnlock = buildingInfo.GetActiveBuildingSection();
 
         SetSections(sectionsUnlock);
         sectionContainer.SetActive(false);
@@ -46,16 +46,16 @@ public class UiBuildingComponent : MonoBehaviour
     //set trigger on a new section and on other section that are there
     void setSectionTriggers(string sectionName, GameObject newObject)
     {
-        List<triggerSerialized> triggers = new List<triggerSerialized>();
-        triggerSerialized trigger = new triggerSerialized();
+        List<SubTriggerSerialized> triggers = new List<SubTriggerSerialized>();
+        SubTriggerSerialized trigger = new SubTriggerSerialized();
         trigger.name = sectionName;
         trigger.obj = newObject;
         trigger.type = TriggerType.Activate;
         triggers.Add(trigger);
 
         //trigger to desactivate 
-        List<triggerSerialized> SubTriggers = new List<triggerSerialized>();
-        triggerSerialized subTrigger = new triggerSerialized();
+        List<SubTriggerSerialized> SubTriggers = new List<SubTriggerSerialized>();
+        SubTriggerSerialized subTrigger = new SubTriggerSerialized();
         subTrigger.name = sectionName;
         subTrigger.obj = newObject;
         subTrigger.type = TriggerType.Desactivate;
@@ -65,7 +65,7 @@ public class UiBuildingComponent : MonoBehaviour
             if (sections[i].name != sectionName)
             {
                 //desactivate all other menu that are already there
-                trigger = new triggerSerialized();
+                trigger = new SubTriggerSerialized();
                 trigger.name = sections[i].name;
                 trigger.obj = sections[i];
                 trigger.type = TriggerType.Desactivate;
@@ -76,10 +76,10 @@ public class UiBuildingComponent : MonoBehaviour
             }
         }
 
-        triggerComponent.AddTrigger(triggers, sectionName, false);
+        triggerComponent.AddTrigger(sectionName, triggers, false);
     }
 
-    bool CreateNewSections(List<buildingSectionSerialized> sectionUnlocked)
+    bool CreateNewSections(List<BuildingSectionSerialized> sectionUnlocked)
     {
         bool unlockedSection = false;
         //loop and create new section that are meant to be created
@@ -128,9 +128,9 @@ public class UiBuildingComponent : MonoBehaviour
     //set a trigger to build a new building
     void SetBuildingTrigger(string buildingName, string sectionName)
     {
-        List<triggerSerialized> triggers = new List<triggerSerialized>();
+        List<SubTriggerSerialized> triggers = new List<SubTriggerSerialized>();
         //settings for the trigger
-        triggerSerialized trigger = new triggerSerialized();
+        SubTriggerSerialized trigger = new SubTriggerSerialized();
         List<string> arguments = new List<string>();
         arguments.Add(buildingName);
         arguments.Add(sectionName);
@@ -144,7 +144,7 @@ public class UiBuildingComponent : MonoBehaviour
         triggers.Add(trigger);
 
         //add the trigger
-        triggerComponent.AddTrigger(triggers, buildingButton, false);
+        triggerComponent.AddTrigger(buildingButton, triggers, false);
     }
 
     //change the position of the building
@@ -152,7 +152,7 @@ public class UiBuildingComponent : MonoBehaviour
     {
         const int sectionHeight = 30;
 
-        List<buildingInfoSerialized> buildings = buildingInfo.buildingsSections.Find((obj) => obj.name == sectionName).buildingsSerialized;
+        List<BuildingSerialized> buildings = buildingInfo.buildingsSections.Find((obj) => obj.name == sectionName).buildingsSerialized;
         (string, Transform, List<(string, Transform)>) showedBuildingSection = SectionShowed.Find((obj) => obj.Item1 == sectionName);
         for (int i = 0; i < buildings.Count; ++i)
         {
@@ -168,7 +168,7 @@ public class UiBuildingComponent : MonoBehaviour
     //create a new building button if you have a new building unlocked
     void CreateNewBuildings(string sectionName)
     {
-        List<buildingInfoSerialized> buildings = buildingInfo.buildingsSections.Find((obj) => obj.name == sectionName).buildingsSerialized;
+        List<BuildingSerialized> buildings = buildingInfo.buildingsSections.Find((obj) => obj.name == sectionName).buildingsSerialized;
         for (int i = 0; i < buildings.Count; ++i)
         {
             (string, Transform, List<(string, Transform)>) showedBuildingList = SectionShowed.Find((obj) => obj.Item1 == sectionName);
@@ -195,7 +195,7 @@ public class UiBuildingComponent : MonoBehaviour
         }
     }
 
-    void SetSections(List<buildingSectionSerialized> sectionUnlocked)
+    void SetSections(List<BuildingSectionSerialized> sectionUnlocked)
     {
         //loop and create new section that are meant to be created
         bool unlockedSection = CreateNewSections(sectionUnlocked);
