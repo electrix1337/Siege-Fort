@@ -19,3 +19,4 @@ public class BuildingInfoComponent : MonoBehaviour
         return buildingsUnlocked;
     }
 }
+

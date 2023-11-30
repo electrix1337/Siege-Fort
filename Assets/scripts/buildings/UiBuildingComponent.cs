@@ -145,6 +145,7 @@ public class UiBuildingComponent : MonoBehaviour
 
         //add the trigger
         triggerComponent.AddTrigger(buildingButton, triggers, false);
+
     }
 
     //change the position of the building
