@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -912,7 +912,7 @@ MonoBehaviour:
       size: {x: 1, y: 1, z: 1}
       buildingImage: {fileID: 2800000, guid: e6798298de273ba4ebdc7aed6c4a1cb9, type: 3}
       costs: []
-    - name: test block
+    - name: Sphere
       unlocked: 1
       building: {fileID: 4781165478640946286, guid: d9ba5b78950964044a2118f8dfaee0b7, type: 3}
       size: {x: 1, y: 1, z: 1}
@@ -920,13 +920,13 @@ MonoBehaviour:
       costs: []
   - name: Research
     active: 1
-    buildingsSerialized: []
-  - name: Army
-    active: 1
-    buildingsSerialized: []
-  - name: Defence
-    active: 0
-    buildingsSerialized: []
+    buildingsSerialized:
+    - name: Mine
+      unlocked: 1
+      building: {fileID: 0}
+      size: {x: 0, y: 0, z: 0}
+      buildingImage: {fileID: 0}
+      costs: []
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
