@@ -8,6 +8,7 @@ public class BuildingSerialized
     public string name;
     public bool unlocked = false;
     public GameObject building;
+    public GameObject blueprint;
     public Vector3 size;
     public Texture buildingImage;
     public List<CostSerialized> costs;

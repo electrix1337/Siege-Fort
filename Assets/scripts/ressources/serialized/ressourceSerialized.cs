@@ -6,7 +6,7 @@ using UnityEngine;
 public class RessourceSerialized
 {
     public string name;
-    public int startingRessources;
+    public int ressourceAmount;
     public string spawnRate;
     public Texture image;
 }

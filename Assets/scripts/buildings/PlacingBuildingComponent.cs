@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -11,12 +12,20 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
 {
     [SerializeField] InputActionAsset inputAsset;
     [SerializeField] GameObject buildingFolder;
+    [SerializeField] GameObject tempFolder;
     [SerializeField] Camera camera;
     [SerializeField] float cancelTime;
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject eventSystem;
-    GameObject objectInHand = null;
+    [SerializeField] GameObject ressourceManager;
+
     BuildingInfoComponent buildingInfo;
+    RessourceManagerComponent ressourceManagerComponent;
+    //info for the building in hand
+    GameObject objectInHand = null;
+    BuildingSerialized buildingInfoSerialized;
+
+    //versatile values
     Vector3 size;
     float time = 0;
     bool cancelPressed = false;
@@ -29,6 +38,7 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
     private void Start()
     {
         buildingInfo = GetComponent<BuildingInfoComponent>();
+        ressourceManagerComponent = ressourceManager.GetComponent<RessourceManagerComponent>();
 
         InputActionMap actionMap = inputAsset.FindActionMap("Camera");
         InputAction shift = actionMap.FindAction("SpeedCamera");
@@ -59,10 +69,10 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
         {
             Destroy(objectInHand);
             BuildingSectionSerialized buildingSection = buildingInfo.buildingsSections.Find((obj) => obj.name.Equals(Building[1]));
-            BuildingSerialized buildingInfoSerialized = buildingSection.buildingsSerialized.Find((obj) => obj.name == Building[0]);
+            buildingInfoSerialized = buildingSection.buildingsSerialized.Find((obj) => obj.name == Building[0]);
 
 
-            objectInHand = Instantiate(buildingInfoSerialized.building, buildingFolder.transform);
+            objectInHand = Instantiate(buildingInfoSerialized.blueprint, tempFolder.transform);
             size = buildingInfoSerialized.size;
             objectInHand.layer = 6;
         }
@@ -76,6 +86,40 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
     {
         Destroy(objectInHand);
         objectInHand = null;
+    }
+    //put the buidling in play
+    void PlaceBuilding()
+    {
+        GameObject building = Instantiate(buildingInfoSerialized.building, buildingFolder.transform);
+        building.transform.position = objectInHand.transform.position;
+    }
+
+    void Build()
+    {
+        //check if the player have the current ressources needed
+        List<CostSerialized> costSerialized = buildingInfoSerialized.costs;
+        List<(string, int)> ressources = new List<(string, int)>();
+        for (int i = 0; i < costSerialized.Count; i++)
+        {
+            ressources.Add((costSerialized[i].name, costSerialized[i].cost));
+        }
+        bool canBuild = ressourceManagerComponent.UseRessources(ressources);
+
+        if (canBuild)
+        {
+            if (holdingShift)
+            {
+                //put the building in play and keep one in hand to place more
+                PlaceBuilding();
+            }
+            else
+            {
+                PlaceBuilding();
+                //remove the building from the player mouse
+                Destroy(objectInHand);
+                objectInHand = null;
+            }
+        }
     }
 
 
@@ -113,16 +157,7 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
 
                 if (Mouse.current.leftButton.wasPressedThisFrame && !hittingMenu)
                 {
-                    if (holdingShift)
-                    {
-                        //put the building in play and keep one in hand to place more
-                        Instantiate(objectInHand, buildingFolder.transform);
-                    }
-                    else
-                    {
-                        //put the building in play
-                        objectInHand = null;
-                    }
+                    Build();
                 }
             }
         }
