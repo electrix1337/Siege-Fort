@@ -10,6 +10,7 @@ public class BuildingSerialized
     public GameObject building;
     public GameObject blueprint;
     public Vector3 size;
+    public int maxHealth;
     public Texture buildingImage;
     public List<CostSerialized> costs;
 }

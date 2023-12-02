@@ -1,10 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(UiRessourcesComponent))]
 public class RessourceManagerComponent : MonoBehaviour
 {
     public List<RessourceSerialized> ressources;
+    UiRessourcesComponent uiRessource;
+
+
+    private void Start()
+    {
+        uiRessource = GetComponent<UiRessourcesComponent>();
+    }
 
     public bool UseRessources(List<(string, int)> ressourcesToUse)
     {
@@ -24,6 +33,7 @@ public class RessourceManagerComponent : MonoBehaviour
             {
                 RessourceSerialized ressource = ressources.Find((obj) => obj.name == ressourcesToUse[i].Item1);
                 ressource.ressourceAmount -= ressourcesToUse[i].Item2;
+                uiRessource.UpdateUi(ressourcesToUse[i].Item1);
             }
         }
 
