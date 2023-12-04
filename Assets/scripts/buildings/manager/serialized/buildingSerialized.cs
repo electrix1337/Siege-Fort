@@ -13,4 +13,5 @@ public class BuildingSerialized
     public int maxHealth;
     public Texture buildingImage;
     public List<CostSerialized> costs;
+    public List<string> activationArguments;
 }

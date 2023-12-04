@@ -919,6 +919,10 @@ MonoBehaviour:
       costs:
       - name: wood
         cost: 3
+      activationArguments:
+      - wood
+      - 1
+      - 7
     - name: Sphere
       unlocked: 1
       building: {fileID: 4781165478640946286, guid: d9ba5b78950964044a2118f8dfaee0b7, type: 3}
@@ -927,6 +931,7 @@ MonoBehaviour:
       maxHealth: 10
       buildingImage: {fileID: 2800000, guid: e6798298de273ba4ebdc7aed6c4a1cb9, type: 3}
       costs: []
+      activationArguments: []
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

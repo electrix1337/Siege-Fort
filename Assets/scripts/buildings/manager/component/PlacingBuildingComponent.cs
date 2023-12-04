@@ -98,6 +98,16 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
         GameObject building = Instantiate(buildingInfoSerialized.building, buildingFolder.transform);
         building.transform.position = objectInHand.transform.position;
         grid.Build(positions);
+
+        IActivate iActivate = building.GetComponent<IActivate>();
+        if (iActivate != null)
+        {
+            for (int i = 0; i < buildingInfoSerialized.activationArguments.Count; ++i)
+            {
+
+            }
+            iActivate.Activate();
+        }
     }
 
     void Build()
