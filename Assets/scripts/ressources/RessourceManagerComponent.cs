@@ -39,6 +39,30 @@ public class RessourceManagerComponent : MonoBehaviour
 
         return canUse;
     }
+    public bool UseRessources(List<CostSerialized> ressourcesToUse)
+    {
+        bool canUse = true;
+        for (int i = 0; i < ressourcesToUse.Count; ++i)
+        {
+            if (ressources.Find((obj) => obj.name == ressourcesToUse[i].name).ressourceAmount < ressourcesToUse[i].cost)
+            {
+                canUse = false;
+                break;
+            }
+        }
+
+        if (canUse)
+        {
+            for (int i = 0; i < ressourcesToUse.Count; ++i)
+            {
+                RessourceSerialized ressource = ressources.Find((obj) => obj.name == ressourcesToUse[i].name);
+                ressource.ressourceAmount -= ressourcesToUse[i].cost;
+                uiRessource.UpdateUi(ressourcesToUse[i].name);
+            }
+        }
+
+        return canUse;
+    }
     public bool UseRessources((string, int) ressourcesToUse)
     {
         bool canUse = false;
@@ -58,6 +82,7 @@ public class RessourceManagerComponent : MonoBehaviour
         if (amount > 0)
         {
             ressources.Find((obj) => obj.name == ressourceName).ressourceAmount += amount;
+            uiRessource.UpdateUi(ressourceName);
         }
         else
         {

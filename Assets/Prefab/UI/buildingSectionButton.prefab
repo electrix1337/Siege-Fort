@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 6169332731376350756}
   - component: {fileID: 1740123567565700837}
   m_Layer: 5
-  m_Name: Image
+  m_Name: buildingSectionButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

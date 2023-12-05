@@ -91,7 +91,7 @@ public class UiBuildingComponent : MonoBehaviour
                 //create the button game object
                 GameObject clone = Instantiate(sectionButton, sectionContainer.transform);
                 clone.name = sectionUnlocked[i].name;
-                Transform child = clone.transform.GetChild(0);
+                Transform child = clone.transform.Find("text");
                 child.GetComponent<Text>().text = sectionUnlocked[i].name;//set the text on the image buttoN
 
 
@@ -181,8 +181,8 @@ public class UiBuildingComponent : MonoBehaviour
                 GameObject clone = Instantiate(prefabBuildingUI, sections.Find((obj) => obj.name == sectionName).transform,
                     showedBuildingList.Item2);
                 clone.name = buildingName;
-                clone.transform.GetChild(1).GetComponent<RawImage>().texture = buildings[i].buildingImage;
-                clone.transform.GetChild(0).GetComponent<Text>().text = buildingName;
+                clone.transform.Find("image").GetComponent<RawImage>().texture = buildings[i].buildingImage;
+                clone.transform.Find("text").GetComponent<Text>().text = buildingName;
                 showedBuildingList.Item3.Add((buildingName, clone.transform));
 
                 //set triggers for the building

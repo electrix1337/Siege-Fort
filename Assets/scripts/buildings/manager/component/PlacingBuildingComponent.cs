@@ -21,7 +21,7 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
     [SerializeField] Vector2Int gridSize;
 
     BuildingInfoComponent buildingInfo;
-    RessourceManagerComponent ressourceManagerComponent;
+    public RessourceManagerComponent ressourceManagerComponent;
     //info for the building in hand
     GameObject objectInHand = null;
     BuildingSerialized buildingInfoSerialized;
@@ -102,11 +102,7 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
         IActivate iActivate = building.GetComponent<IActivate>();
         if (iActivate != null)
         {
-            for (int i = 0; i < buildingInfoSerialized.activationArguments.Count; ++i)
-            {
-
-            }
-            iActivate.Activate();
+            iActivate.Activate(this);
         }
     }
 
@@ -126,15 +122,8 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
 
         if (canBuild)
         {
-
             //check if the player have the current ressources needed
-            List<CostSerialized> costSerialized = buildingInfoSerialized.costs;
-            List<(string, int)> ressources = new List<(string, int)>();
-            for (int i = 0; i < costSerialized.Count; i++)
-            {
-                ressources.Add((costSerialized[i].name, costSerialized[i].cost));
-            }
-            canBuild = ressourceManagerComponent.UseRessources(ressources);
+            canBuild = ressourceManagerComponent.UseRessources(buildingInfoSerialized.costs);
 
             if (canBuild)
             {

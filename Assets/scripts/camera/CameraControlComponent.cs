@@ -65,7 +65,6 @@ public class CameraControlComponent : MonoBehaviour
             y = Input.GetAxis("Mouse X");
             x = Input.GetAxis("Mouse Y");
 
-            Debug.Log(transform.eulerAngles.x - x * rotationSpeed.x);
             if (transform.eulerAngles.x - x * rotationSpeed.x < maxVerticalRotation && transform.eulerAngles.x - x * rotationSpeed.x > minVerticalRotation)
             {
                 transform.eulerAngles = transform.eulerAngles - new Vector3(x * rotationSpeed.x, y * rotationSpeed.y * -1, 0);
@@ -79,10 +78,6 @@ public class CameraControlComponent : MonoBehaviour
 
         Vector3 oldPosition = gameObject.transform.position;
         gameObject.transform.Translate(new Vector3(0, 0, scroll * scrollSpeed), Space.Self);
-        if (scroll != 0)
-        {
-            Debug.Log(scroll);
-        }
         if ((gameObject.transform.position.y < minHeightPosition && scroll > 0) || (gameObject.transform.position.y > maxHeightPosition && scroll < 0))
         {
             gameObject.transform.position = oldPosition;
