@@ -1,37 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class RessouceExtractorComponent : MonoBehaviour, IActivate
+public class RessouceExtractorComponent : MonoBehaviour
 {
-    //a voir
-    RessourceManagerComponent ressourceManager;
     [SerializeField] float timeBetweenExtraction;
     [SerializeField] string ressourceName;
     [SerializeField] int amountToExtract;
     [SerializeField] Vector3 spawnPosition;
-    Transform unitFolder;
-    float time = 0;
-    bool active = false;
 
-    public void Activate(params object[] arguments)
+    RessourceManagerComponent ressourceManager;
+    float time = 0;
+
+    private void Start()
     {
-        ressourceManager = ((PlacingBuildingComponent)arguments[0]).ressourceManagerComponent;
-        Debug.Log(spawnPosition + gameObject.transform.position);
-        active = true;
+        ressourceManager = GameObject.Find(GameObjectPath.GetPath("RessourceManagerComponent")).GetComponent<RessourceManagerComponent>();
     }
 
     private void Update()
     {
-        if (active)
+        time += Time.deltaTime;
+        if (time > timeBetweenExtraction)
         {
-            time += Time.deltaTime;
-            if (time > timeBetweenExtraction)
-            {
-                time -= timeBetweenExtraction;
-                ressourceManager.AddRessource(ressourceName, amountToExtract);
-            }
+            time -= timeBetweenExtraction;
+            ressourceManager.AddRessource(ressourceName, amountToExtract);
         }
     }
 }
