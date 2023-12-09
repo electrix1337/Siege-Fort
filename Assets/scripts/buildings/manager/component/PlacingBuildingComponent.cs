@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using UnityEngine.WSA;
 
 [RequireComponent(typeof(BuildingInfoComponent))]
 public class PlacingBuildingComponent : MonoBehaviour, ICancel
@@ -16,12 +14,13 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
     [SerializeField] Camera camera;
     [SerializeField] float cancelTime;
     [SerializeField] GameObject canvas;
+    [SerializeField] GameObject healthCanvas;
     [SerializeField] GameObject eventSystem;
     [SerializeField] GameObject ressourceManager;
     [SerializeField] Vector2Int gridSize;
 
     BuildingInfoComponent buildingInfo;
-    public RessourceManagerComponent ressourceManagerComponent;
+    RessourceManagerComponent ressourceManagerComponent;
     //info for the building in hand
     GameObject objectInHand = null;
     BuildingSerialized buildingInfoSerialized;
@@ -30,8 +29,6 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
     //versatile values
     Vector3 size;
     Vector3 objectPosition;
-    float time = 0;
-    bool cancelPressed = false;
 
     bool holdingShift = false;
 
@@ -40,9 +37,15 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
     PointerEventData m_PointerEventData;
     private void Start()
     {
+        //set this gameObject path save to use it later
+        GameObjectPath.AddPath("PlacingBuildingComponent", gameObject);
+
+        //get needed component
         buildingInfo = GetComponent<BuildingInfoComponent>();
         ressourceManagerComponent = ressourceManager.GetComponent<RessourceManagerComponent>();
 
+
+        //input actions
         InputActionMap actionMap = inputAsset.FindActionMap("Camera");
         InputAction shift = actionMap.FindAction("SpeedCamera");
 
@@ -87,6 +90,7 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
         }
     }
 
+    //remove building from the player mouse
     public void Cancel()
     {
         Destroy(objectInHand);
@@ -99,13 +103,14 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
         building.transform.position = objectInHand.transform.position;
         grid.Build(positions);
 
-        IActivate iActivate = building.GetComponent<IActivate>();
-        if (iActivate != null)
-        {
-            iActivate.Activate(this);
-        }
+        GameObject hpCanvas = Instantiate(healthCanvas, building.transform);
+        Debug.Log(building.transform.localScale);
+        hpCanvas.transform.position = building.transform.position + building.transform.localScale;
+
+        building.GetComponent<IActivateBuilding>().ActivateBuilding(buildingInfoSerialized);
     }
 
+    //try to build the building on the mouse
     void Build()
     {
         //check if the space is occupied
@@ -136,23 +141,16 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
                 {
                     PlaceBuilding(positions);
                     //remove the building from the player mouse
-                    Destroy(objectInHand);
-                    objectInHand = null;
+                    Cancel();
                 }
             }
             else
-            {
-                Destroy(objectInHand);
-                objectInHand = null;
-            }
+                Cancel();
         }
         else
         {
             if (!holdingShift)
-            {
-                Destroy(objectInHand);
-                objectInHand = null;
-            }
+                Cancel();
         }
     }
 

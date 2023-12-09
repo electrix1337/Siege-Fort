@@ -3,32 +3,27 @@ using System.Collections.Generic;
 using System.Resources;
 using UnityEngine;
 
-public class UnitsProductionComponent : MonoBehaviour, IActivate
+public class UnitsProductionComponent : MonoBehaviour
 {
     [SerializeField] GameObject unit;
+    //[SerializeField] GameObject 
     [SerializeField] float timeBetweenSpawn;
     [SerializeField] List<CostSerialized> costPerSpawn;
     RessourceManagerComponent ressourceManager;
     float time;
-    bool active = false;
 
-    public void Activate(params object[] arguments)
+    private void Start()
     {
-        ressourceManager = ((PlacingBuildingComponent)arguments[0]).ressourceManagerComponent;
-        active = true;
+        ressourceManager = GameObject.Find(GameObjectPath.GetPath("RessourceManagerComponent")).GetComponent<RessourceManagerComponent>();
     }
-
     // Update is called once per frame
     void Update()
     {
-        if (active)
+        time += Time.deltaTime;
+        if (time > timeBetweenSpawn)
         {
-            time += Time.deltaTime;
-            if (time > timeBetweenSpawn)
-            {
-                time -= timeBetweenSpawn;
-                ressourceManager.UseRessources(costPerSpawn);
-            }
+            time -= timeBetweenSpawn;
+            ressourceManager.UseRessources(costPerSpawn);
         }
     }
 }

@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(UiRessourcesComponent))]
@@ -13,6 +11,8 @@ public class RessourceManagerComponent : MonoBehaviour
     private void Start()
     {
         uiRessource = GetComponent<UiRessourcesComponent>();
+
+        GameObjectPath.AddPath("RessourceManagerComponent", gameObject);
     }
 
     public bool UseRessources(List<(string, int)> ressourcesToUse)
