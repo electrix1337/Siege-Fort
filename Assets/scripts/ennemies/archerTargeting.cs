@@ -5,14 +5,4 @@ using UnityEngine;
 public class archerTargeting : MonoBehaviour
 {
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

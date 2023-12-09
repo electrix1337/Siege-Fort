@@ -1,7 +1,8 @@
-using UnityEngine.UIElements;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingHealthComponent : MonoBehaviour
+public class HealthComponent : MonoBehaviour
 {
     public int health { get; private set; }
 
@@ -36,7 +37,7 @@ public class BuildingHealthComponent : MonoBehaviour
         }
     }
     //initialize the building hp
-    public void SetBuildingHp(int hp)
+    public void SetHp(int hp)
     {
         health = hp;
         maxHealth = hp;
@@ -53,8 +54,8 @@ public class BuildingHealthComponent : MonoBehaviour
 
     void ChangeUi()
     {
-        healthBar.localPosition = new Vector3((healthBar.rect.width * 
+        healthBar.localPosition = new Vector3((healthBar.rect.width *
             ((float)health / maxHealth) - healthBar.rect.width) / 2, 0, 0);
-        healthBar.localScale = new Vector3((float)health / maxHealth, 1 , 1);
+        healthBar.localScale = new Vector3((float)health / maxHealth, 1, 1);
     }
 }

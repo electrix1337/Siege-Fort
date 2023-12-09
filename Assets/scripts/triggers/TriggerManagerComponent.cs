@@ -72,7 +72,6 @@ public class TriggerManagerComponent : MonoBehaviour
     {
         triggers.Remove(triggers.Find((obj) => obj.name == triggerName));
     }
-
     public void AddSubTriggers(string triggerName, List<SubTriggerSerialized> subTriggersToAdd)
     {
         TriggerSerialized trigger = triggers.Find((obj) => obj.name == triggerName);

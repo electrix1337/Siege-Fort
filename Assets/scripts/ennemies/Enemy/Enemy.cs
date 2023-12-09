@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(HealthComponent))]
 public class Enemy : MonoBehaviour
 {
-    public int NodeIndex;
     public float MaxHealth;
     public float Health;
     public float Speed;
@@ -13,5 +13,6 @@ public class Enemy : MonoBehaviour
     public void Init()
     {
         Health = MaxHealth;
+        GetComponent<HealthComponent>().SetHp((int)MaxHealth);
     }
 }
