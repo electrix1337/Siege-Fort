@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class GameLoopManager : MonoBehaviour
 {
-    public static Vector3[] NodePositions;
+    //public static Vector3[] NodePositions;
+    //public Transform NodeParent;
 
     private static Queue<int> EnemysToSummon;
     private static Queue<Enemy> EnemysToRemove;
     public bool LoopShouldEnd;
-    public Transform NodeParent;
 
     private void Start()
     {
@@ -17,12 +17,12 @@ public class GameLoopManager : MonoBehaviour
         EnemysToRemove = new Queue<Enemy>();
         EntitySummon.Init();
 
-        NodePositions = new Vector3[NodeParent.childCount];
+        //NodePositions = new Vector3[NodeParent.childCount];
 
-        for(int i=0; i < NodePositions.Length;i++)
-        {
-            NodePositions[i] = NodeParent.GetChild(i).position;
-        }
+        //for(int i=0; i < NodePositions.Length;i++)
+        //{
+        //    NodePositions[i] = NodeParent.GetChild(i).position;
+        //}
 
         StartCoroutine(GameLoop());
         InvokeRepeating("SummonTest",0f,1f);
