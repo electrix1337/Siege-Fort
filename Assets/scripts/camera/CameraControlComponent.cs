@@ -17,6 +17,8 @@ public class CameraControlComponent : MonoBehaviour
     [SerializeField] float minVerticalRotation;
     [SerializeField] float maxVerticalRotation;
 
+    List<activateOnRotation> activateOnRotationList = new List<activateOnRotation>();
+
     float speed;
     Vector2 movement;
     bool isRotating;
@@ -47,10 +49,15 @@ public class CameraControlComponent : MonoBehaviour
     {
         movement = action.ReadValue<Vector2>();
     }
-
     public void ActiveRotation(bool active)
     {
         isRotating = active;
+    }
+
+    public void AddRotatingUI(activateOnRotation activateOnRotation)
+    {
+        activateOnRotationList.Add(activateOnRotation);
+        activateOnRotation.ActivateOnRotation(gameObject.transform.rotation);
     }
 
     // Update is called once per frame
@@ -68,6 +75,11 @@ public class CameraControlComponent : MonoBehaviour
             if (transform.eulerAngles.x - x * rotationSpeed.x < maxVerticalRotation && transform.eulerAngles.x - x * rotationSpeed.x > minVerticalRotation)
             {
                 transform.eulerAngles = transform.eulerAngles - new Vector3(x * rotationSpeed.x, y * rotationSpeed.y * -1, 0);
+            }
+
+            for  (int i = 0; i < activateOnRotationList.Count; i++)
+            {
+                activateOnRotationList[i].ActivateOnRotation(gameObject.transform.rotation);
             }
 
         }

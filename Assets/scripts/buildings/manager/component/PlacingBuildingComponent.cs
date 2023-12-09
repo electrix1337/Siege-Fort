@@ -19,6 +19,8 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
     [SerializeField] GameObject ressourceManager;
     [SerializeField] Vector2Int gridSize;
 
+
+    CameraControlComponent cameraControlComponent;
     BuildingInfoComponent buildingInfo;
     RessourceManagerComponent ressourceManagerComponent;
     //info for the building in hand
@@ -43,6 +45,7 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
         //get needed component
         buildingInfo = GetComponent<BuildingInfoComponent>();
         ressourceManagerComponent = ressourceManager.GetComponent<RessourceManagerComponent>();
+        cameraControlComponent = camera.GetComponent<CameraControlComponent>();
 
 
         //input actions
@@ -105,7 +108,9 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
 
         GameObject hpCanvas = Instantiate(healthCanvas, building.transform);
         Debug.Log(building.transform.localScale);
-        hpCanvas.transform.position = building.transform.position + building.transform.localScale;
+        hpCanvas.transform.position = building.transform.position + new Vector3(0, building.transform.localScale.y, 0);
+
+        cameraControlComponent.AddRotatingUI(hpCanvas.GetComponent<activateOnRotation>());
 
         building.GetComponent<IActivateBuilding>().ActivateBuilding(buildingInfoSerialized);
     }

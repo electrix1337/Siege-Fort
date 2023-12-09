@@ -158,3 +158,4 @@ MonoBehaviour:
   timeBetweenExtraction: 5
   ressourceName: stone
   amountToExtract: 1
+  spawnPosition: {x: 0, y: 0, z: 0}
