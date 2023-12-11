@@ -9,7 +9,7 @@ public class BuildingSerialized
     public bool unlocked = false;
     public GameObject building;
     public GameObject blueprint;
-    public Vector3 size;
+    public float size;
     public int maxHealth;
     public Texture buildingImage;
     public List<CostSerialized> costs;

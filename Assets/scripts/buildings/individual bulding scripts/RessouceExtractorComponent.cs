@@ -5,7 +5,6 @@ public class RessouceExtractorComponent : MonoBehaviour
     [SerializeField] float timeBetweenExtraction;
     [SerializeField] string ressourceName;
     [SerializeField] int amountToExtract;
-    [SerializeField] Vector3 spawnPosition;
 
     RessourceManagerComponent ressourceManager;
     float time = 0;

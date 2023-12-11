@@ -18,6 +18,8 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
     [SerializeField] GameObject eventSystem;
     [SerializeField] GameObject ressourceManager;
     [SerializeField] Vector2Int gridSize;
+    [SerializeField] Material acceptMaterial;
+    [SerializeField] Material denyMaterial;
 
 
     CameraControlComponent cameraControlComponent;
@@ -27,12 +29,16 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
     GameObject objectInHand = null;
     BuildingSerialized buildingInfoSerialized;
     BuildingGrid grid;
+    MeshRenderer hitboxMeshRenderer;
+    Transform hitbox;
 
     //versatile values
     Vector3 size;
     Vector3 objectPosition;
 
     bool holdingShift = false;
+
+    bool goodPlacement;
 
     GraphicRaycaster m_Raycaster;
     EventSystem m_EventSystem;
@@ -46,7 +52,6 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
         buildingInfo = GetComponent<BuildingInfoComponent>();
         ressourceManagerComponent = ressourceManager.GetComponent<RessourceManagerComponent>();
         cameraControlComponent = camera.GetComponent<CameraControlComponent>();
-
 
         //input actions
         InputActionMap actionMap = inputAsset.FindActionMap("Camera");
@@ -82,9 +87,18 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
             BuildingSectionSerialized buildingSection = buildingInfo.buildingsSections.Find((obj) => obj.name.Equals(Building[1]));
             buildingInfoSerialized = buildingSection.buildingsSerialized.Find((obj) => obj.name == Building[0]);
 
-
             objectInHand = Instantiate(buildingInfoSerialized.blueprint, tempFolder.transform);
-            size = buildingInfoSerialized.size;
+            objectInHand.transform.localScale = Vector3.one * buildingInfoSerialized.size;
+            for (int i = 0; i < objectInHand.transform.childCount; ++i)
+            {
+                if (objectInHand.transform.GetChild(i).name == "hitbox")
+                {
+                    hitbox = objectInHand.transform.GetChild(i);
+                    hitboxMeshRenderer = objectInHand.transform.GetChild(i).GetComponent<MeshRenderer>();
+                    break;
+                }
+            }
+            size = Vector3.one * buildingInfoSerialized.size;
             objectInHand.layer = 6;
         }
         else
@@ -104,11 +118,15 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
     {
         GameObject building = Instantiate(buildingInfoSerialized.building, buildingFolder.transform);
         building.transform.position = objectInHand.transform.position;
+        building.transform.localScale = Vector3.one * buildingInfoSerialized.size;
         grid.Build(positions);
 
         GameObject hpCanvas = Instantiate(healthCanvas, building.transform);
-        Debug.Log(building.transform.localScale);
-        hpCanvas.transform.position = building.transform.position + new Vector3(0, building.transform.localScale.y, 0);
+
+        /*set the size and the position at a more appropriate location*/
+        hpCanvas.transform.localScale = new Vector3(1 / buildingInfoSerialized.size, 
+            1 / buildingInfoSerialized.size, 1 / buildingInfoSerialized.size);
+        hpCanvas.transform.position = building.transform.position + new Vector3(0, hitbox.localScale.y + 2, 0);
 
         BuildingStatsComponent buildingStats = building.AddComponent<BuildingStatsComponent>();
         //buildingStats.
@@ -119,18 +137,8 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
     }
 
     //try to build the building on the mouse
-    void Build()
+    void Build(List<Vector2Int> positions)
     {
-        //check if the space is occupied
-        List<Vector2Int> positions = new List<Vector2Int>();
-        for (int x = 0; x < size.x; ++x)
-        {
-            for (int z = 0; z < size.z; ++z)
-            {
-                positions.Add(new Vector2Int(x + Mathf.FloorToInt(objectPosition.x) + gridSize.x / 2, 
-                    z + Mathf.FloorToInt(objectPosition.z) + gridSize.y / 2));
-            }
-        }
         bool canBuild = grid.CanBuild(positions);
 
         if (canBuild)
@@ -192,12 +200,38 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
                         break;
                     }
                 }
-                objectPosition = new Vector3(Mathf.Floor(hitInfo.point.x) + ((size.x % 2) * 0.5f), size.y / 2, Mathf.Floor(hitInfo.point.z) + ((size.z % 2) * 0.5f));
+                objectPosition = new Vector3(Mathf.Floor(hitInfo.point.x) + ((size.x % 2) * 0.5f), /*size.y / 2*/0, Mathf.Floor(hitInfo.point.z) + ((size.z % 2) * 0.5f));
+
+                //check if the space is occupied
+                List<Vector2Int> positions = new List<Vector2Int>();
+                for (int x = 0; x < size.x; ++x)
+                {
+                    for (int z = 0; z < size.z; ++z)
+                    {
+                        positions.Add(new Vector2Int(x + Mathf.FloorToInt(objectPosition.x) + (int)size.x % 2 + gridSize.x / 2,
+                            z + Mathf.FloorToInt(objectPosition.z) + (int)size.z % 2 + gridSize.y / 2));
+                    }
+                }
+                if (!goodPlacement)
+                {
+                    if (grid.CanBuild(positions))
+                    {
+                        goodPlacement = true;
+                        hitboxMeshRenderer.material = acceptMaterial;
+                    }
+                }
+                else
+                {
+                    if (!grid.CanBuild(positions)) {
+                        goodPlacement = false;
+                        hitboxMeshRenderer.material = denyMaterial;
+                    }
+                }
                 objectInHand.transform.position = objectPosition;
 
                 if (Mouse.current.leftButton.wasPressedThisFrame && !hittingMenu)
                 {
-                    Build();
+                    Build(positions);
                 }
             }
         }
