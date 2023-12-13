@@ -4,7 +4,14 @@ using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
 
-public class archerTargeting { 
+public class archerTargeting {
+    /// <summary>
+    /// Tristan Katcho
+    /// 
+    /// 
+    /// Sphere collider to check if any users with this layer mask are nearby
+    /// </summary>
+
     public static Enemy GetTarget(ArcherBehaviourComponent currentArcher)
     {
         Collider[] ennemiesInRange = Physics.OverlapSphere(currentArcher.transform.position, currentArcher.Range, currentArcher.EnemiesLayer);

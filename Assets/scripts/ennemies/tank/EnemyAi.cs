@@ -5,6 +5,10 @@ using UnityEngine.AI;
 
 public class EnemyAi : MonoBehaviour
 {
+    /// <summary>
+    /// Tristan Katcho
+    /// </summary>
+
     private NavMeshAgent agent;
     private Node topNode;
     private Animator animator; 

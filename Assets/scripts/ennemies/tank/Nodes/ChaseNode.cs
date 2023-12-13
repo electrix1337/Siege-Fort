@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class ChaseNode : Node
 {
+    /// <summary>
+    /// Tristan Katcho
+    /// </summary>
+
     private Transform mainTarget;
     private NavMeshAgent agent;
     private float buildingDetectionRadius;

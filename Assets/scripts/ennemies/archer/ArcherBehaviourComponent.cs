@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ArcherBehaviourComponent : MonoBehaviour
 {
+    /// <summary>
+    /// Tristan Katcho
+    /// </summary>
 
     public LayerMask EnemiesLayer;
     public Enemy Target;

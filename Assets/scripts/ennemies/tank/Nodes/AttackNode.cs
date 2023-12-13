@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class AttackNode : Node
 {
+    /// <summary>
+    /// Tristan Katcho
+    /// </summary>
+
     private NavMeshAgent agent;
     private EnemyAi ai;
     private Animator animator; // Reference to the Animator component
