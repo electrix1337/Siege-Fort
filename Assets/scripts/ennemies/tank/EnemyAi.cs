@@ -12,7 +12,7 @@ public class EnemyAi : MonoBehaviour
     public Transform mainTarget;
     public LayerMask buildingLayer;
     public float buildingDetectionRadius = 10f;
-
+    public Transform currentTarget;
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -23,11 +23,11 @@ public class EnemyAi : MonoBehaviour
 
     void InitializeBehaviorTree()
     {
-        ChaseNode chaseNode = new ChaseNode(mainTarget, agent, buildingDetectionRadius, buildingLayer);
-        AttackNode attackNode = new AttackNode(agent, this, animator); 
+        ChaseNode chaseNode = new ChaseNode(mainTarget, agent, buildingDetectionRadius, buildingLayer,this);
+        AttackNode attackNode = new AttackNode(agent, this, animator);
 
-         Selector rootNode = new Selector(new List<Node> { chaseNode, attackNode });
-         topNode = rootNode;
+        Sequence rootNode = new Sequence(new List<Node> { chaseNode, attackNode });
+        topNode = rootNode;
     }
 
     void Update()
