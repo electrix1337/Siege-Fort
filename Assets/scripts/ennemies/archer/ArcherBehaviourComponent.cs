@@ -19,20 +19,24 @@ public class ArcherBehaviourComponent : MonoBehaviour
     RaycastHit hit;
 
     private float fireElapsedTime = 0;
+    private float fireDelay;
+
     void Start()
     {
         animator = GetComponent<Animator>();
+        fireDelay = 1f / Firerate; // Calculate the delay based on fire rate
+
     }
     private void Update()
     {
         fireElapsedTime += Time.deltaTime;
-            Target = archerTargeting.GetTarget(this.gameObject.GetComponent<ArcherBehaviourComponent>());
+        Target = archerTargeting.GetTarget(this.gameObject.GetComponent<ArcherBehaviourComponent>());
 
         if (Target != null)
         {
             ArcherPivot.transform.rotation = Quaternion.LookRotation(Target.transform.position - transform.position);
 
-            if (fireElapsedTime >= Firerate)
+            if (fireElapsedTime >= fireDelay)
             {
                 if (Physics.Raycast(ArcherPivot.position, Target.gameObject.transform.position - ArcherPivot.position, out hit))
                     if (hit.collider.transform == Target.gameObject.transform)
@@ -48,7 +52,7 @@ public class ArcherBehaviourComponent : MonoBehaviour
     }
     public void ShootArrowWithDelay()
     {
-        StartCoroutine(ShootArrowAfterDelay(1f)); // Wait for 2 seconds before shooting
+        StartCoroutine(ShootArrowAfterDelay(1f)); // just for it to be in sync with arrow coming out
     }
     private IEnumerator ShootArrowAfterDelay(float delay)
     {
