@@ -130,8 +130,8 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
             1 / buildingInfoSerialized.size, 1 / buildingInfoSerialized.size);
         hpCanvas.transform.position = building.transform.position + new Vector3(0, hitbox.localScale.y + 2, 0);
 
-        //BuildingStatsComponent buildingStats = building.AddComponent<BuildingStatsComponent>();
-        //buildingStats.
+        BuildingStatsComponent buildingStats = building.AddComponent<BuildingStatsComponent>();
+        buildingStats.ActivateBuilding(buildingInfoSerialized);
 
         cameraControlComponent.AddRotatingUI(hpCanvas.GetComponent<activateOnRotation>());
 
