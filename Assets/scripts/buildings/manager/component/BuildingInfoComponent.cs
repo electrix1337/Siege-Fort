@@ -8,6 +8,11 @@ public class BuildingInfoComponent : MonoBehaviour
 
     public int Count { get => buildingsSections.Count; }
 
+    private void Awake()
+    {
+        GameObjectPath.AddPath("BuildingInfoComponent", gameObject);
+    }
+
     public List<BuildingSectionSerialized> GetActiveBuildingSection()
     {
         List<BuildingSectionSerialized> buildingsUnlocked = new List<BuildingSectionSerialized>();

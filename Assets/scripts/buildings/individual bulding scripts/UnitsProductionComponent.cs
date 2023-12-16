@@ -23,7 +23,11 @@ public class UnitsProductionComponent : MonoBehaviour
         if (time > timeBetweenSpawn)
         {
             time -= timeBetweenSpawn;
-            ressourceManager.UseRessources(costPerSpawn);
+            bool canSpawn = ressourceManager.UseRessources(costPerSpawn);
+            if (canSpawn)
+            {
+
+            }
         }
     }
 }

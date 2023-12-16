@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -43,11 +42,14 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
     GraphicRaycaster m_Raycaster;
     EventSystem m_EventSystem;
     PointerEventData m_PointerEventData;
-    private void Start()
+
+    private void Awake()
     {
         //set this gameObject path save to use it later
         GameObjectPath.AddPath("PlacingBuildingComponent", gameObject);
-
+    }
+    private void Start()
+    {
         //get needed component
         buildingInfo = GetComponent<BuildingInfoComponent>();
         ressourceManagerComponent = ressourceManager.GetComponent<RessourceManagerComponent>();
@@ -128,7 +130,7 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
             1 / buildingInfoSerialized.size, 1 / buildingInfoSerialized.size);
         hpCanvas.transform.position = building.transform.position + new Vector3(0, hitbox.localScale.y + 2, 0);
 
-        BuildingStatsComponent buildingStats = building.AddComponent<BuildingStatsComponent>();
+        //BuildingStatsComponent buildingStats = building.AddComponent<BuildingStatsComponent>();
         //buildingStats.
 
         cameraControlComponent.AddRotatingUI(hpCanvas.GetComponent<activateOnRotation>());
