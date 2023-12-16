@@ -15,6 +15,8 @@ public class UnitsAi : MonoBehaviour
     public float detectionRadius = 10f;
     public Transform currentTarget;
 
+    Transform target = null;
+
 
     public float attackRange = 5f;
     public float attackRate = 1f;
@@ -28,17 +30,20 @@ public class UnitsAi : MonoBehaviour
 
     void Update()
     {
-        currentTarget = FindPriorityTarget();
 
-        if (currentTarget != null)
+        if (target == null)
         {
-            MoveTowardsTarget(currentTarget);
+            target = FindPriorityTarget();
+        }
+        if (target != null)
+        {
+            MoveTowardsTarget(target);
 
-            if (Vector3.Distance(transform.position, currentTarget.position) <= attackRange)
+            if (Vector3.Distance(transform.position, target.position) <= attackRange)
             {
                 if (Time.time > lastAttackTime + 1f / attackRate)
                 {
-                    AttackTarget(currentTarget);
+                    AttackTarget();
                     lastAttackTime = Time.time;
                 }
             }
@@ -50,10 +55,14 @@ public class UnitsAi : MonoBehaviour
         agent.SetDestination(target.position);
     }
 
-    void AttackTarget(Transform target)
+    void AttackTarget()
     {
         Debug.Log("attack");
         //degats + anims
+        if (target != null)
+        {
+
+        } 
     }
 
     Transform FindPriorityTarget()
