@@ -13,6 +13,11 @@ public class Enemy : MonoBehaviour
     public void Init()
     {
         Health = MaxHealth;
-        GetComponent<HealthComponent>().SetHp((int)MaxHealth);
+        
+    }
+    private void Start()
+    {
+        gameObject.GetComponent<HealthComponent>().SetHp(25);
+        Debug.Log(gameObject.GetComponent<HealthComponent>().health);
     }
 }
