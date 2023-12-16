@@ -16,6 +16,8 @@ public class UnitsAi : MonoBehaviour
     public Transform currentTarget;
 
     Transform target = null;
+    HealthComponent targetHealth;
+    
 
 
     public float attackRange = 5f;
@@ -59,10 +61,9 @@ public class UnitsAi : MonoBehaviour
     {
         Debug.Log("attack");
         //degats + anims
-        if (target != null)
-        {
-
-        } 
+        //bool isalive = targetHealth.TakeDamage();
+        /*if (!isalive)
+            target = null;*/
     }
 
     Transform FindPriorityTarget()

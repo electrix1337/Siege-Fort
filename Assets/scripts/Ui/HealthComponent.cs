@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class HealthComponent : MonoBehaviour
@@ -10,17 +11,20 @@ public class HealthComponent : MonoBehaviour
     int maxHealth;
 
     //damage the building
-    public void TakeDamage(int amount)
+    //return true if the entity is alive
+    public bool TakeDamage(int amount)
     {
         health -= amount;
         //si le building n'a plus de vie, il est détruit
         if (health <= 0)
         {
             Destroy(gameObject.transform.parent.gameObject);
+            return false;
         }
         else
         {
             ChangeUi();
+            return true;
         }
     }
     //heal the building
