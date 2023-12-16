@@ -34,7 +34,7 @@ public class EntitySummon : MonoBehaviour
         }
         else
         {
-            Debug.Log("ENTITY IS ALREADY INITIALIZED");
+            Debug.Log("ENTITY ALR INITIALIZED");
         }
 
     }
