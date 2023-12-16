@@ -107,6 +107,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4823631726335763816}
   - component: {fileID: 3575698231725267679}
+  - component: {fileID: 7333460561242903604}
+  - component: {fileID: 807356276}
+  - component: {fileID: 807356280}
   m_Layer: 0
   m_Name: BasicEnemy
   m_TagString: Untagged
@@ -146,3 +149,60 @@ MonoBehaviour:
   Health: 0
   Speed: 3
   ID: 0
+--- !u!114 &7333460561242903604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591464386466218767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 266487554338e0d4cb7420bdf3cc6114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &807356276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591464386466218767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6adb978b9762344e9d549b385bd8f4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainTarget: {fileID: 0}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  buildingLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  detectionRadius: 10
+  currentTarget: {fileID: 0}
+  attackRange: 5
+  attackRate: 1
+--- !u!195 &807356280
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591464386466218767}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
