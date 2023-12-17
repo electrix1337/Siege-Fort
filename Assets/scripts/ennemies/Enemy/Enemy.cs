@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,17 @@ public class Enemy : MonoBehaviour
     }
     private void Start()
     {
-        gameObject.GetComponent<HealthComponent>().SetHp(25);
-        Debug.Log(gameObject.GetComponent<HealthComponent>().health);
+        if(ID == 0)
+        {
+            gameObject.GetComponent<HealthComponent>().SetHp(25);
+        }
+        if (ID == 2)
+        {
+            gameObject.GetComponent<HealthComponent>().SetHp(100);
+        }
+        else
+        {
+            gameObject.GetComponent<HealthComponent>().SetHp(50);
+        }
     }
 }
