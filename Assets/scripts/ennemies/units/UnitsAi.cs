@@ -45,7 +45,6 @@ public class UnitsAi : MonoBehaviour
 
             if (Vector3.Distance(transform.position, target.position) <= attackRange)
             {
-                Debug.Log("salut");
                 if (Time.time > lastAttackTime + 1f / attackRate)
                 {
                     AttackTarget();
@@ -64,7 +63,6 @@ public class UnitsAi : MonoBehaviour
     {
         //degats + anims
         //Debug.Log(target);
-        Debug.Log("attack");
 
         bool isalive = targetHealth.TakeDamage(10);
         Debug.Log(targetHealth.health);

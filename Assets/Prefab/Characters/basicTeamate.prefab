@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8984723413640612408}
   - component: {fileID: 2046515578866733520}
   - component: {fileID: 349172103316842052}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ BoxCollider:
   m_GameObject: {fileID: 1202183161774793546}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -110,7 +110,8 @@ GameObject:
   - component: {fileID: 5028801377950830834}
   - component: {fileID: 614941780191127415}
   - component: {fileID: 8589504360257995808}
-  m_Layer: 0
+  - component: {fileID: 2140177266}
+  m_Layer: 9
   m_Name: basicTeamate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,6 +208,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &2140177266
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1531708148667267402}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &6060999890366854630
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -216,11 +230,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1663441968222957101, guid: 81ae3adb238aa494186e2a6867c50a25, type: 3}
       propertyPath: m_Name
-      value: healthCanvas
+      value: healthCanvas(Clone)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663441968222957101, guid: 81ae3adb238aa494186e2a6867c50a25, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3515020774226570163, guid: 81ae3adb238aa494186e2a6867c50a25, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4494180146745868825, guid: 81ae3adb238aa494186e2a6867c50a25, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4888793809567068286, guid: 81ae3adb238aa494186e2a6867c50a25, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969182878832286279, guid: 81ae3adb238aa494186e2a6867c50a25, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7076244582026170892, guid: 81ae3adb238aa494186e2a6867c50a25, type: 3}
       propertyPath: m_Pivot.x
