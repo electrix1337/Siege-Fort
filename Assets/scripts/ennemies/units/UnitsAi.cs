@@ -24,8 +24,14 @@ public class UnitsAi : MonoBehaviour
     public float attackRate = 1f;
     private float lastAttackTime;
 
-    void Awake()
+    void Start()
     {
+        GameObject targetObject = GameObject.FindGameObjectWithTag("Flag");
+        if (gameObject.tag.Contains("team"))
+        {
+            targetObject = GameObject.FindGameObjectWithTag("EFlag");
+        }
+        mainTarget = targetObject.transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
     }
