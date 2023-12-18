@@ -4,7 +4,7 @@ using System.Resources;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class UnitsProductionComponent : MonoBehaviour, IActivateBuilding
+public class UnitsProductionComponent : MonoBehaviour, IActivateBuilding, IActivateEnnemy
 {
     [SerializeField] GameObject unit;
     //[SerializeField] GameObject 
@@ -14,27 +14,30 @@ public class UnitsProductionComponent : MonoBehaviour, IActivateBuilding
     float time = 0;
     LayerMask teamUnitMask;
     public Transform unitFolder;
+    bool canSpawn = false;
 
     private void Start()
     {
-        ressourceManager = GameObject.Find(GameObjectPath.GetPath("RessourceManagerComponent")).GetComponent<RessourceManagerComponent>();
-        teamUnitMask = LayerMask.NameToLayer("enemie");
+        ressourceManager = GameObject.Find(GameObjectPath.GetPath("RessourceManager")).GetComponent<RessourceManagerComponent>();
     }
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
-        if (time > timeBetweenSpawn)
+        if (canSpawn)
         {
-            time -= timeBetweenSpawn;
-            bool canSpawn = true;
-            if (costPerSpawn.Count != 0)
-                canSpawn = ressourceManager.UseRessources(costPerSpawn);
-            if (canSpawn)
+            time += Time.deltaTime;
+            if (time > timeBetweenSpawn)
             {
-                GameObject clone = Instantiate(unit, unitFolder);
-                clone.layer = teamUnitMask;
-                clone.transform.position = gameObject.transform.position;
+                time -= timeBetweenSpawn;
+                bool canSpawn = true;
+                if (costPerSpawn.Count != 0)
+                    canSpawn = ressourceManager.UseRessources(costPerSpawn);
+                if (canSpawn)
+                {
+                    GameObject clone = Instantiate(unit, unitFolder);
+                    clone.layer = teamUnitMask;
+                    clone.transform.position = gameObject.transform.position;
+                }
             }
         }
     }
@@ -43,5 +46,12 @@ public class UnitsProductionComponent : MonoBehaviour, IActivateBuilding
     {
         teamUnitMask = LayerMask.NameToLayer("teamates");
         unitFolder = GameObject.Find("map/teams/Player/units").transform;
+        canSpawn = true;
+    }
+
+    public void StartSpawning()
+    {
+        teamUnitMask = LayerMask.NameToLayer("enemie");
+        canSpawn = true;
     }
 }

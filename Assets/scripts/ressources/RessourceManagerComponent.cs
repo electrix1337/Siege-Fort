@@ -9,7 +9,7 @@ public class RessourceManagerComponent : MonoBehaviour
 
     private void Awake()
     {
-        GameObjectPath.AddPath("RessourceManagerComponent", gameObject);
+        GameObjectPath.AddPath("RessourceManager", gameObject);
     }
     private void Start()
     {

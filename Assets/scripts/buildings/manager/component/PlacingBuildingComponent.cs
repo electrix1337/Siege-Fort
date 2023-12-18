@@ -47,7 +47,7 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
     private void Awake()
     {
         //set this gameObject path save to use it later
-        GameObjectPath.AddPath("PlacingBuildingComponent", gameObject);
+        GameObjectPath.AddPath("BuildingManager", gameObject);
     }
     private void Start()
     {

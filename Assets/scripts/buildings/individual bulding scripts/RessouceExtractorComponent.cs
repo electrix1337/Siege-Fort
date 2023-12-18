@@ -11,7 +11,7 @@ public class RessouceExtractorComponent : MonoBehaviour
 
     private void Start()
     {
-        ressourceManager = GameObject.Find(GameObjectPath.GetPath("RessourceManagerComponent")).GetComponent<RessourceManagerComponent>();
+        ressourceManager = GameObject.Find(GameObjectPath.GetPath("RessourceManager")).GetComponent<RessourceManagerComponent>();
     }
 
 
