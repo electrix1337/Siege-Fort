@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5020102151802104529}
   - component: {fileID: 5020102151802104528}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: club barrack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +48,7 @@ MonoBehaviour:
   unit: {fileID: 2426251580060782777, guid: 26ee381f3c4c7b64e8bc059bcbd092e3, type: 3}
   timeBetweenSpawn: 3
   costPerSpawn: []
+  unitFolder: {fileID: 0}
 --- !u!1 &5020102152630623092
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,7 +61,7 @@ GameObject:
   - component: {fileID: 5020102152630623088}
   - component: {fileID: 5020102152630623089}
   - component: {fileID: 5020102152630623090}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}

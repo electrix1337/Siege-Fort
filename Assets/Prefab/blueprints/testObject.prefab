@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7932422915167551843}
   - component: {fileID: 6920057161828491424}
   - component: {fileID: 2273325775458979833}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7174281967248186867}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: testObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 7402066079610536412}
   - component: {fileID: 6388489083038553116}
   - component: {fileID: 2729862301746879311}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere Variant
   m_TagString: Untagged
   m_Icon: {fileID: 0}

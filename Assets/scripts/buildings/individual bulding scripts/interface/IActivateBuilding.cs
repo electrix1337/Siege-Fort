@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IActivateBuilding
 {
-    public void ActivateBuilding(BuildingSerialized buildingInfo, string team);
+    public void ActivateBuilding(BuildingSerialized buildingInfo);
 }

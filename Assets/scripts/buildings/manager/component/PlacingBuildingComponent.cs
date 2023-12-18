@@ -136,9 +136,11 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
         cameraControlComponent.AddRotatingUI(hpCanvas.GetComponent<activateOnRotation>());
 
         IActivateBuilding activateBuilding = building.GetComponent<IActivateBuilding>();
+
+        building.layer = LayerMask.NameToLayer("building");
         if (activateBuilding != null)
         {
-            activateBuilding.ActivateBuilding(buildingInfoSerialized, "teamates");
+            activateBuilding.ActivateBuilding(buildingInfoSerialized);
         }
     }
 

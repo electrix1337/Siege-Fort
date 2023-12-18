@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UnitsProductionComponent : MonoBehaviour, IActivateBuilding
@@ -11,11 +12,13 @@ public class UnitsProductionComponent : MonoBehaviour, IActivateBuilding
     [SerializeField] List<CostSerialized> costPerSpawn;
     RessourceManagerComponent ressourceManager;
     float time = 0;
-    Transform folder;
+    LayerMask teamUnitMask;
+    public Transform unitFolder;
 
     private void Start()
     {
         ressourceManager = GameObject.Find(GameObjectPath.GetPath("RessourceManagerComponent")).GetComponent<RessourceManagerComponent>();
+        teamUnitMask = LayerMask.NameToLayer("enemie");
     }
     // Update is called once per frame
     void Update()
@@ -24,17 +27,21 @@ public class UnitsProductionComponent : MonoBehaviour, IActivateBuilding
         if (time > timeBetweenSpawn)
         {
             time -= timeBetweenSpawn;
-            bool canSpawn = ressourceManager.UseRessources(costPerSpawn);
+            bool canSpawn = true;
+            if (costPerSpawn.Count != 0)
+                canSpawn = ressourceManager.UseRessources(costPerSpawn);
             if (canSpawn)
             {
-
-                //Instantiate(unit, );
+                GameObject clone = Instantiate(unit, unitFolder);
+                clone.layer = teamUnitMask;
+                clone.transform.position = gameObject.transform.position;
             }
         }
     }
 
-    public void ActivateBuilding(BuildingSerialized buildingInfo, string team)
+    public void ActivateBuilding(BuildingSerialized buildingInfo)
     {
-        throw new System.NotImplementedException();
+        teamUnitMask = LayerMask.NameToLayer("teamates");
+        unitFolder = GameObject.Find("map/teams/Player/units").transform;
     }
 }
