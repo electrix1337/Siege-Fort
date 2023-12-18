@@ -20,6 +20,7 @@ public class StatsEnnemyBuildingComponent : MonoBehaviour
     void Start()
     {
         buildingInfo = GetComponent<BuildingInfoComponent>();
+        grid = GetComponent<PlacingBuildingComponent>().grid;
 
         for (int i = 0; i < ennemyBuildingFolder.childCount; ++i)
         {
@@ -46,6 +47,7 @@ public class StatsEnnemyBuildingComponent : MonoBehaviour
             {
                 for (int z = 0; z < size.z; ++z)
                 {
+                    Debug.Log("test");
                     positions.Add(new Vector2Int(x + Mathf.FloorToInt(objectPosition.x) + (int)size.x % 2 + gridSize.x / 2,
                         z + Mathf.FloorToInt(objectPosition.z) + (int)size.z % 2 + gridSize.y / 2));
                 }

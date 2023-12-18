@@ -1515,7 +1515,7 @@ MonoBehaviour:
   - name: Economy
     active: 1
     buildingsSerialized:
-    - name: Mine
+    - name: Mine 1
       unlocked: 1
       building: {fileID: 8433762009427433289, guid: 0fa24a245b2513343be6ce70589b6211, type: 3}
       blueprint: {fileID: 345704424130075047, guid: ee0bd86144975f544986b4bff142e7ce, type: 3}
@@ -1525,7 +1525,7 @@ MonoBehaviour:
       costs:
       - name: wood
         cost: 20
-    - name: Saw Mill
+    - name: Scierie
       unlocked: 1
       building: {fileID: 3202524284108491094, guid: bdfae44dd9a5f934a9cef07947e0b7f9, type: 3}
       blueprint: {fileID: 8884787056510319344, guid: 767fa7949ad459b478e205c63aabaa4a, type: 3}
@@ -1538,7 +1538,7 @@ MonoBehaviour:
   - name: army
     active: 1
     buildingsSerialized:
-    - name: soldier barrack
+    - name: club barrack
       unlocked: 1
       building: {fileID: 5020102151802104530, guid: 8bb8cb400f9a03649a64a33ad378974a, type: 3}
       blueprint: {fileID: 4163979138844281066, guid: 70a45524572a348499e50f3e2466f6c4, type: 3}
@@ -1574,7 +1574,7 @@ MonoBehaviour:
       costs:
       - name: stone
         cost: 15
-    - name: archer tower
+    - name: archerTower(teamate)
       unlocked: 1
       building: {fileID: 7459649704870854675, guid: 9e30a7d5d7a3bc140aab7fe761b27f48, type: 3}
       blueprint: {fileID: 2741120333166834298, guid: 1759ccbff09c5ee449beedc4b46e2d23, type: 3}

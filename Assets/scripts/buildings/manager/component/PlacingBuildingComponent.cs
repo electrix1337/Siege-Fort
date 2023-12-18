@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
@@ -28,7 +29,7 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
     //info for the building in hand
     GameObject objectInHand = null;
     BuildingSerialized buildingInfoSerialized;
-    BuildingGrid grid;
+    public BuildingGrid grid;
     MeshRenderer hitboxMeshRenderer;
     Transform hitbox;
 
@@ -48,6 +49,8 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
     {
         //set this gameObject path save to use it later
         GameObjectPath.AddPath("BuildingManager", gameObject);
+
+        grid = new BuildingGrid(gridSize.x, gridSize.y);
     }
     private void Start()
     {
@@ -59,8 +62,6 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
         //input actions
         InputActionMap actionMap = inputAsset.FindActionMap("Camera");
         InputAction shift = actionMap.FindAction("SpeedCamera");
-
-        grid = new BuildingGrid(gridSize.x, gridSize.y);
 
         shift.performed += HoldObject;
         shift.canceled += HoldObject;
