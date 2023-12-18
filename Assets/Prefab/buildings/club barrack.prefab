@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81ba8f10e7f572a4698cd2ab85a3691e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 0}
-  timeBetweenSpawn: 0
+  unit: {fileID: 2426251580060782777, guid: 26ee381f3c4c7b64e8bc059bcbd092e3, type: 3}
+  timeBetweenSpawn: 3
   costPerSpawn: []
 --- !u!1 &5020102152630623092
 GameObject:

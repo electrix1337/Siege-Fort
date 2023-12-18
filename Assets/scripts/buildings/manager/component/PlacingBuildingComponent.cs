@@ -131,12 +131,15 @@ public class PlacingBuildingComponent : MonoBehaviour, ICancel
             1 / buildingInfoSerialized.size, 1 / buildingInfoSerialized.size);
         hpCanvas.transform.position = building.transform.position + new Vector3(0, hitbox.localScale.y + 2, 0);
 
-        BuildingStatsComponent buildingStats = building.AddComponent<BuildingStatsComponent>();
-        buildingStats.ActivateBuilding(buildingInfoSerialized);
+        building.AddComponent<BuildingStatsComponent>();
 
         cameraControlComponent.AddRotatingUI(hpCanvas.GetComponent<activateOnRotation>());
 
-        building.GetComponent<IActivateBuilding>().ActivateBuilding(buildingInfoSerialized);
+        IActivateBuilding activateBuilding = building.GetComponent<IActivateBuilding>();
+        if (activateBuilding != null)
+        {
+            activateBuilding.ActivateBuilding(buildingInfoSerialized, "teamates");
+        }
     }
 
     //try to build the building on the mouse

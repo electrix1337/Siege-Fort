@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Resources;
 using UnityEngine;
 
-public class UnitsProductionComponent : MonoBehaviour
+public class UnitsProductionComponent : MonoBehaviour, IActivateBuilding
 {
     [SerializeField] GameObject unit;
     //[SerializeField] GameObject 
     [SerializeField] float timeBetweenSpawn;
     [SerializeField] List<CostSerialized> costPerSpawn;
     RessourceManagerComponent ressourceManager;
-    float time;
+    float time = 0;
+    Transform folder;
 
     private void Start()
     {
@@ -27,7 +28,13 @@ public class UnitsProductionComponent : MonoBehaviour
             if (canSpawn)
             {
 
+                //Instantiate(unit, );
             }
         }
+    }
+
+    public void ActivateBuilding(BuildingSerialized buildingInfo, string team)
+    {
+        throw new System.NotImplementedException();
     }
 }

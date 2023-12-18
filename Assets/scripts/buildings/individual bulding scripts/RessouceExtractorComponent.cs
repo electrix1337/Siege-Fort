@@ -14,6 +14,8 @@ public class RessouceExtractorComponent : MonoBehaviour
         ressourceManager = GameObject.Find(GameObjectPath.GetPath("RessourceManagerComponent")).GetComponent<RessourceManagerComponent>();
     }
 
+
+
     private void Update()
     {
         time += Time.deltaTime;
