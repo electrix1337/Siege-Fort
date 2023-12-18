@@ -11,9 +11,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 54a6902dd9c050d49babfef6670ad0ca, type: 2}
+    - target: {fileID: 3901851104866898974, guid: 9debe41b44da50b42ab9f125e0790ae9, type: 3}
+      propertyPath: m_Name
+      value: hitbox
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901851104866898974, guid: 9debe41b44da50b42ab9f125e0790ae9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3901851105930748700, guid: 9debe41b44da50b42ab9f125e0790ae9, type: 3}
       propertyPath: m_Name
       value: Mine Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901851105930748700, guid: 9debe41b44da50b42ab9f125e0790ae9, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3901851105930748701, guid: 9debe41b44da50b42ab9f125e0790ae9, type: 3}
       propertyPath: m_RootOrder

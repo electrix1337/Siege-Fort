@@ -71,7 +71,6 @@ public class UnitsAi : MonoBehaviour
         //Debug.Log(target);
 
         bool isalive = targetHealth.TakeDamage(10);
-        Debug.Log(targetHealth.health);
         if (!isalive)
             target = null;
 

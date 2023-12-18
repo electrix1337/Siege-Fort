@@ -7,12 +7,13 @@ public class RessourceManagerComponent : MonoBehaviour
     public List<RessourceSerialized> ressources;
     UiRessourcesComponent uiRessource;
 
-
+    private void Awake()
+    {
+        GameObjectPath.AddPath("RessourceManagerComponent", gameObject);
+    }
     private void Start()
     {
         uiRessource = GetComponent<UiRessourcesComponent>();
-
-        GameObjectPath.AddPath("RessourceManagerComponent", gameObject);
     }
 
     public bool UseRessources(List<(string, int)> ressourcesToUse)

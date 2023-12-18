@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2465333336389556269}
   - component: {fileID: 2465333336389556270}
   - component: {fileID: 2465333336389556271}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: saw mill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2465333337357642193}
   - component: {fileID: 2465333337357642192}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: saw mill
   m_TagString: Untagged
   m_Icon: {fileID: 0}

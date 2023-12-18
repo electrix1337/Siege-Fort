@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5633465624263087156}
   - component: {fileID: 8088188110691467764}
   - component: {fileID: 969707194208390823}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sphere Variant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5406386303252383771}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: testObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}

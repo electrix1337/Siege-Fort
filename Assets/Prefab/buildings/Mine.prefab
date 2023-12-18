@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3901851104866898962}
   - component: {fileID: 3901851104866898973}
   - component: {fileID: 3901851104866898972}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 3901851105930748701}
   - component: {fileID: 7296058435330889348}
   - component: {fileID: 812131480700735806}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Mine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,4 +158,3 @@ MonoBehaviour:
   timeBetweenExtraction: 5
   ressourceName: stone
   amountToExtract: 1
-  spawnPosition: {x: 0, y: 0, z: 0}
