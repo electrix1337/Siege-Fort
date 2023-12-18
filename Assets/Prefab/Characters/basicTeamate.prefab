@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 2140177266}
   m_Layer: 9
   m_Name: basicTeamate
-  m_TagString: Untagged
+  m_TagString: teamate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

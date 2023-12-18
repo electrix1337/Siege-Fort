@@ -24,8 +24,14 @@ public class UnitsAi : MonoBehaviour
     public float attackRate = 1f;
     private float lastAttackTime;
 
-    void Awake()
+    void Start()
     {
+        GameObject targetObject = GameObject.FindGameObjectWithTag("Flag");
+        if (gameObject.tag.Contains("team"))
+        {
+            targetObject = GameObject.FindGameObjectWithTag("EFlag");
+        }
+        mainTarget = targetObject.transform;
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
     }
@@ -64,6 +70,11 @@ public class UnitsAi : MonoBehaviour
         //degats + anims
         //Debug.Log(target);
 
+        if (target.tag.Contains("Flag"))
+        {
+            Debug.Log("end game");
+            return;
+        }
         bool isalive = targetHealth.TakeDamage(10);
         if (!isalive)
             target = null;

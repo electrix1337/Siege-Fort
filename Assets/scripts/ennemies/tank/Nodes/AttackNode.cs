@@ -34,6 +34,11 @@ public class AttackNode : Node
             {
                 elapsedTime = 0;
                 animator.Play("punch");
+                if (ai.currentTarget.tag.Contains("Flag"))
+                {
+                    Debug.Log("end game");
+                    return NodeState.SUCCESS;
+                }
                 ai.currentTarget.gameObject.GetComponent<HealthComponent>().TakeDamage(10);
                 return NodeState.SUCCESS;
             }
