@@ -2413,7 +2413,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1663441968222957101, guid: 81ae3adb238aa494186e2a6867c50a25, type: 3}
       propertyPath: m_Name
-      value: healthCanvas
+      value: healthCanvas(Clone)
       objectReference: {fileID: 0}
     - target: {fileID: 4494180146745868825, guid: 81ae3adb238aa494186e2a6867c50a25, type: 3}
       propertyPath: m_PresetInfoIsWorld

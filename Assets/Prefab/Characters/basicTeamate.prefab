@@ -159,9 +159,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14dadc0ca2b66c4f8360e4f04850738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 0
+  MaxHealth: 5
   Health: 0
-  Speed: 0
+  Speed: 5
   ID: 0
 --- !u!114 &614941780191127415
 MonoBehaviour:
