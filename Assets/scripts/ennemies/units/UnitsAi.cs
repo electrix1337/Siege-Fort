@@ -70,6 +70,11 @@ public class UnitsAi : MonoBehaviour
         //degats + anims
         //Debug.Log(target);
 
+        if (target.tag.Contains("Flag"))
+        {
+            Debug.Log("end game");
+            return;
+        }
         bool isalive = targetHealth.TakeDamage(10);
         if (!isalive)
             target = null;

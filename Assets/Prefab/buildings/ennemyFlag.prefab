@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 4712396188502191470}
   m_Layer: 0
   m_Name: ennemyFlag
-  m_TagString: Untagged
+  m_TagString: EFlag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
