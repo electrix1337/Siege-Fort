@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4712396187637302846}
   - component: {fileID: 4712396187637302847}
   - component: {fileID: 4712396187637302832}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 4712396188411372966}
   - component: {fileID: 4712396188411372967}
   - component: {fileID: 4712396188411372984}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: flag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,7 +212,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4712396188502191470}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ennemyFlag
   m_TagString: EFlag
   m_Icon: {fileID: 0}

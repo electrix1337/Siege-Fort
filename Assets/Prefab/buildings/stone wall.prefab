@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2153198998009344913}
   - component: {fileID: 7724563147721679914}
   - component: {fileID: 7776342911032052139}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: stone wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 4607107733430501832}
   - component: {fileID: 2080829518854281253}
   - component: {fileID: 8863538700641941455}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}

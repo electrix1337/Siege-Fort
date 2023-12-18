@@ -38,6 +38,7 @@ public class StatsEnnemyBuildingComponent : MonoBehaviour
             }
             Vector3 objectPosition = new Vector3(Mathf.Floor(building.position.x) + ((size.x % 2) * 0.5f), /*size.y / 2*/0, Mathf.Floor(building.position.z) + ((size.z % 2) * 0.5f));
 
+            Debug.Log(buildingInfoSerialized.size + "    " + buildingInfoSerialized.name);
             size = Vector3.one * buildingInfoSerialized.size;
 
             List<Vector2Int> positions = new List<Vector2Int>();
@@ -67,17 +68,12 @@ public class StatsEnnemyBuildingComponent : MonoBehaviour
             1 / buildingInfoSerialized.size, 1 / buildingInfoSerialized.size);
         hpCanvas.transform.position = building.position + new Vector3(0, /*hitbox.localScale.y + 2*/0, 0);
 
-        building.gameObject.AddComponent<BuildingStatsComponent>();
-
-        IActivateBuilding activateBuilding = building.GetComponent<IActivateBuilding>();
+        BuildingStatsComponent buildingStat = building.gameObject.AddComponent<BuildingStatsComponent>();
 
         building.GetComponent<IActivateEnnemy>();
 
         building.gameObject.layer = LayerMask.NameToLayer("building");
-        if (activateBuilding != null)
-        {
-            activateBuilding.ActivateBuilding(buildingInfoSerialized);
-        }
+        buildingStat.ActivateBuilding(buildingInfoSerialized);
     }
 
     void SetBasesStats()
