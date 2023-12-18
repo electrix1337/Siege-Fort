@@ -11,6 +11,7 @@ public class AttackNode : Node
     private EnemyAi ai;
     private Animator animator; // Reference to the Animator component
     float elapsedTime = 0;
+    HealthComponent targetHealth;
     public AttackNode(NavMeshAgent agent, EnemyAi ai, Animator animator)
     {
         this.agent = agent;
@@ -33,6 +34,7 @@ public class AttackNode : Node
             {
                 elapsedTime = 0;
                 animator.Play("punch");
+                ai.currentTarget.gameObject.GetComponent<HealthComponent>().TakeDamage(10);
                 return NodeState.SUCCESS;
             }
         }

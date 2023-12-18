@@ -36,6 +36,8 @@ public class UnitsAi : MonoBehaviour
         if (target == null)
         {
             target = FindPriorityTarget();
+            targetHealth = target.GetComponent<HealthComponent>();
+
         }
         if (target != null)
         {
@@ -59,22 +61,31 @@ public class UnitsAi : MonoBehaviour
 
     void AttackTarget()
     {
-        Debug.Log("attack");
         //degats + anims
-        //bool isalive = targetHealth.TakeDamage();
-        /*if (!isalive)
-            target = null;*/
+        //Debug.Log(target);
+
+        bool isalive = targetHealth.TakeDamage(10);
+        Debug.Log(targetHealth.health);
+        if (!isalive)
+            target = null;
+
     }
 
     Transform FindPriorityTarget()
     {
         Transform enemyTarget = UnitsTargetDetector.GetNearestTarget(transform, detectionRadius, enemyLayer);
         if (enemyTarget != null)
+        {
+            //targetHealth = enemyTarget.GetComponent<HealthComponent>();
             return enemyTarget;
+        }
 
         Transform buildingTarget = BuildingDetector.GetNearestBuilding(transform, detectionRadius, buildingLayer);
         if (buildingTarget != null)
+        {
+           // targetHealth = enemyTarget.GetComponent<HealthComponent>();
             return buildingTarget;
+        }
 
 
         return mainTarget;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,21 @@ public class Enemy : MonoBehaviour
     public void Init()
     {
         Health = MaxHealth;
-        GetComponent<HealthComponent>().SetHp((int)MaxHealth);
+        
+    }
+    private void Start()
+    {
+        if(ID == 0)
+        {
+            gameObject.GetComponent<HealthComponent>().SetHp(25);
+        }
+        if (ID == 2)
+        {
+            gameObject.GetComponent<HealthComponent>().SetHp(100);
+        }
+        else
+        {
+            gameObject.GetComponent<HealthComponent>().SetHp(50);
+        }
     }
 }

@@ -23,12 +23,19 @@ public class ArcherBehaviourComponent : MonoBehaviour
 
     private float fireElapsedTime = 0;
     private float fireDelay;
-
     void Start()
     {
         animator = GetComponent<Animator>();
         fireDelay = 1f / Firerate; // Calculate the delay based on fire rate
+        UpdateAnimatorSpeed();
 
+    }
+    private void UpdateAnimatorSpeed()
+    {
+        float baseAnimationDuration = 1f; 
+        float animationSpeed = baseAnimationDuration * Firerate;
+
+        animator.speed = animationSpeed;
     }
     private void Update()
     {
@@ -45,7 +52,7 @@ public class ArcherBehaviourComponent : MonoBehaviour
                     if (hit.collider.transform == Target.gameObject.transform)
                     {
                         animator.Play("shootBow");
-
+                        Target.GetComponent<HealthComponent>().TakeDamage(10);
                         ShootArrowWithDelay();
                         fireElapsedTime = 0;
                     }

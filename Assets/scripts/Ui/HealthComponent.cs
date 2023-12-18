@@ -18,7 +18,8 @@ public class HealthComponent : MonoBehaviour
         //si le building n'a plus de vie, il est détruit
         if (health <= 0)
         {
-            Destroy(gameObject.transform.parent.gameObject);
+            //Destroy(gameObject.transform.parent.gameObject);
+            Destroy(gameObject);
             return false;
         }
         else
