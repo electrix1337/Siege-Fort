@@ -1,5 +1,6 @@
 using UnityEngine.AI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AttackNode : Node
 {
@@ -37,9 +38,10 @@ public class AttackNode : Node
                 if (ai.currentTarget.tag.Contains("Flag"))
                 {
                     Debug.Log("end game");
+                    SceneManager.LoadScene(1);
                     return NodeState.SUCCESS;
                 }
-                ai.currentTarget.gameObject.GetComponent<HealthComponent>().TakeDamage(10);
+                ai.currentTarget.gameObject.GetComponent<HealthComponent>().TakeDamage(5);
                 return NodeState.SUCCESS;
             }
         }

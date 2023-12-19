@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class UnitsAi : MonoBehaviour
 {
@@ -73,6 +74,7 @@ public class UnitsAi : MonoBehaviour
         if (target.tag.Contains("Flag"))
         {
             Debug.Log("end game");
+            SceneManager.LoadScene(1);
             return;
         }
         bool isalive = targetHealth.TakeDamage(10);
