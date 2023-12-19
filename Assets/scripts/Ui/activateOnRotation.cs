@@ -6,6 +6,6 @@ public class activateOnRotation : MonoBehaviour
 {
     public void ActivateOnRotation(Quaternion rotation)
     {
-        gameObject.GetComponent<RectTransform>().localRotation = rotation;
+        gameObject.GetComponent<RectTransform>().rotation = rotation;
     }
 }

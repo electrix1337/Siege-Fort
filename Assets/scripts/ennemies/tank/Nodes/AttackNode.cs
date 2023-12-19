@@ -13,18 +13,22 @@ public class AttackNode : Node
     private Animator animator; // Reference to the Animator component
     float elapsedTime = 0;
     HealthComponent targetHealth;
-    public AttackNode(NavMeshAgent agent, EnemyAi ai, Animator animator)
+    int damage;
+    float range;
+    public AttackNode(NavMeshAgent agent, EnemyAi ai, Animator animator, int damage, float range)
     {
         this.agent = agent;
         this.ai = ai;
         this.animator = animator;
+        this.range = range;
+        this.damage = damage;
     }
 
     public override NodeState Evaluate()
     {
         elapsedTime += Time.deltaTime;
         float distanceToTarget = Vector3.Distance(agent.transform.position, ai.currentTarget.position);
-        if (distanceToTarget <= 6) // Assuming ai.attackRange is the attack range
+        if (distanceToTarget <= range) // Assuming ai.attackRange is the attack range
         {
             agent.isStopped = true;
             if (elapsedTime <= 2)
@@ -41,7 +45,7 @@ public class AttackNode : Node
                     SceneManager.LoadScene(1);
                     return NodeState.SUCCESS;
                 }
-                ai.currentTarget.gameObject.GetComponent<HealthComponent>().TakeDamage(5);
+                ai.currentTarget.gameObject.GetComponent<HealthComponent>().TakeDamage(damage);
                 return NodeState.SUCCESS;
             }
         }

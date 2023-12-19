@@ -40,6 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8949440414669348474}
+  - component: {fileID: 5487720838855252126}
   m_Layer: 11
   m_Name: archerTower
   m_TagString: Untagged
@@ -69,6 +70,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &5487720838855252126
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 872532108522331096}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &1404107936309855980
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,9 +487,9 @@ MonoBehaviour:
   Target: {fileID: 0}
   ArcherPivot: {fileID: 2253292961464729581}
   ArrowOut: {fileID: 49003134568334253}
-  Damage: 15
-  Firerate: 2
-  Range: 20
+  Damage: 40
+  Firerate: 1
+  Range: 17
   ArrowPrefab: {fileID: 570533177146165866, guid: 1a33e2a08dc3f0c4ea52a3d74996bd3c, type: 3}
 --- !u!1 &2253292961483436060
 GameObject:

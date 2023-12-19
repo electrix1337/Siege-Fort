@@ -63,14 +63,14 @@ public class StatsEnnemyBuildingComponent : MonoBehaviour
     {
         grid.Build(positions);
 
-        gameObject.transform.localScale = Vector3.one * buildingInfoSerialized.size;
+        //gameObject.transform.localScale = Vector3.one * buildingInfoSerialized.size;
 
         GameObject hpCanvas = Instantiate(healthCanvas, building);
 
         /*set the size and the position at a more appropriate location*/
-        hpCanvas.transform.localScale = new Vector3(1 / buildingInfoSerialized.size,
-            1 / buildingInfoSerialized.size, 1 / buildingInfoSerialized.size);
-        hpCanvas.transform.position = building.position + new Vector3(0, /*hitbox.localScale.y + 2*/building.GetComponent<BoxCollider>().size.y + 1, 0);
+        //hpCanvas.transform.localScale = new Vector3(1 / buildingInfoSerialized.size,
+            //1 / buildingInfoSerialized.size, 1 / buildingInfoSerialized.size);
+        hpCanvas.transform.position = building.position + new Vector3(0, /*hitbox.localScale.y + 2*/building.GetComponent<BoxCollider>().size.y * building.transform.localScale.y + 0.7f, 0);
 
         cameraControlComponent.AddRotatingUI(hpCanvas.GetComponent<activateOnRotation>());
 

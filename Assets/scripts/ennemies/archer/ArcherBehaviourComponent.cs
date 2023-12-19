@@ -49,13 +49,19 @@ public class ArcherBehaviourComponent : MonoBehaviour
             if (fireElapsedTime >= fireDelay)
             {
                 if (Physics.Raycast(ArcherPivot.position, Target.gameObject.transform.position - ArcherPivot.position, out hit))
-                    if (hit.collider.transform == Target.gameObject.transform)
-                    {
+                {
+                    animator.Play("shootBow");
+                    Target.GetComponent<HealthComponent>().TakeDamage(10);
+                    ShootArrowWithDelay();
+                    fireElapsedTime = 0;
+                }
+                    /*if (hit.collider.transform == Target.gameObject.transform)
+                    {*/
                         animator.Play("shootBow");
                         Target.GetComponent<HealthComponent>().TakeDamage(10);
                         ShootArrowWithDelay();
                         fireElapsedTime = 0;
-                    }
+                    /*}*/
             }
         }
 

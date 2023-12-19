@@ -9,7 +9,8 @@ public class EnemyAi : MonoBehaviour
     /// <summary>
     /// Tristan Katcho
     /// </summary>
-
+    [SerializeField] int damage;
+    [SerializeField] float range;
     private NavMeshAgent agent;
     private Node topNode;
     private Animator animator; 
@@ -35,7 +36,7 @@ public class EnemyAi : MonoBehaviour
     void InitializeBehaviorTree()
     {
         ChaseNode chaseNode = new ChaseNode(mainTarget, agent, buildingDetectionRadius, buildingLayer,this);
-        AttackNode attackNode = new AttackNode(agent, this, animator);
+        AttackNode attackNode = new AttackNode(agent, this, animator, damage, range);
 
         Sequence rootNode = new Sequence(new List<Node> { chaseNode, attackNode });
         topNode = rootNode;
