@@ -5287,7 +5287,7 @@ MonoBehaviour:
       blueprint: {fileID: 5442573519261969214, guid: d95e5e46fd781a24f90b57fe35351874, type: 3}
       size: 4
       maxHealth: 75
-      buildingImage: {fileID: 2800000, guid: fda5c95cc564c04498b4a4dc203f54d4, type: 3}
+      buildingImage: {fileID: 2800000, guid: 798cdda2b1f3185428084a473892c01c, type: 3}
       costs:
       - name: stone
         cost: 5
