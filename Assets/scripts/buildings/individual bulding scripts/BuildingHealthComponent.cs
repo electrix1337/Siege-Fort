@@ -40,7 +40,6 @@ public class BuildingHealthComponent : MonoBehaviour
     {
         health = hp;
         maxHealth = hp;
-        Debug.Log(hp);
 
         Transform canvas = null;
         for (int i = 0; i < transform.childCount; i++)

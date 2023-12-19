@@ -6,14 +6,15 @@ using UnityEngine;
 
 public class UnitsProductionComponent : MonoBehaviour, IActivateBuilding, IActivateEnnemy
 {
-    [SerializeField] GameObject unit;
+    [SerializeField] GameObject teamUnit;
+    [SerializeField] GameObject ennemyUnit;
     //[SerializeField] GameObject 
     [SerializeField] float timeBetweenSpawn;
     [SerializeField] List<CostSerialized> costPerSpawn;
     RessourceManagerComponent ressourceManager;
     float time = 0;
     LayerMask teamUnitMask;
-    public Transform unitFolder;
+    Transform unitFolder;
     bool canSpawn = false;
 
     private void Start()
@@ -29,12 +30,22 @@ public class UnitsProductionComponent : MonoBehaviour, IActivateBuilding, IActiv
             if (time > timeBetweenSpawn)
             {
                 time -= timeBetweenSpawn;
-                bool canSpawn = true;
-                if (costPerSpawn.Count != 0)
-                    canSpawn = ressourceManager.UseRessources(costPerSpawn);
-                if (canSpawn)
+                if (teamUnitMask == LayerMask.NameToLayer("teamates"))
                 {
-                    GameObject clone = Instantiate(unit, unitFolder);
+                    bool canSpawn = true;
+                    if (costPerSpawn.Count != 0)
+                        canSpawn = ressourceManager.UseRessources(costPerSpawn);
+                    if (canSpawn)
+                    {
+                        GameObject clone = Instantiate(teamUnit, unitFolder);
+                        clone.layer = teamUnitMask;
+                        clone.transform.position = gameObject.transform.position;
+                    }
+
+                }
+                else
+                {
+                    GameObject clone = Instantiate(ennemyUnit, unitFolder);
                     clone.layer = teamUnitMask;
                     clone.transform.position = gameObject.transform.position;
                 }
@@ -51,7 +62,9 @@ public class UnitsProductionComponent : MonoBehaviour, IActivateBuilding, IActiv
 
     public void StartSpawning()
     {
+        Debug.Log("salut");
         teamUnitMask = LayerMask.NameToLayer("enemie");
+        unitFolder = GameObject.Find("map/teams/ennemy/units").transform;
         canSpawn = true;
     }
 }

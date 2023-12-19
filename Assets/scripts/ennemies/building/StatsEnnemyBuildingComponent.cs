@@ -11,7 +11,9 @@ public class StatsEnnemyBuildingComponent : MonoBehaviour
 {
     [SerializeField] GameObject healthCanvas;
     [SerializeField] Transform ennemyBuildingFolder;
+    [SerializeField] GameObject camera;
     BuildingInfoComponent buildingInfo;
+    CameraControlComponent cameraControlComponent;
     Vector3 size;
 
     BuildingGrid grid;
@@ -21,6 +23,8 @@ public class StatsEnnemyBuildingComponent : MonoBehaviour
     {
         buildingInfo = GetComponent<BuildingInfoComponent>();
         grid = GetComponent<PlacingBuildingComponent>().grid;
+
+        cameraControlComponent = camera.GetComponent<CameraControlComponent>();
 
         for (int i = 0; i < ennemyBuildingFolder.childCount; ++i)
         {
@@ -39,7 +43,6 @@ public class StatsEnnemyBuildingComponent : MonoBehaviour
             }
             Vector3 objectPosition = new Vector3(Mathf.Floor(building.position.x) + ((size.x % 2) * 0.5f), /*size.y / 2*/0, Mathf.Floor(building.position.z) + ((size.z % 2) * 0.5f));
 
-            Debug.Log(buildingInfoSerialized.size + "    " + buildingInfoSerialized.name);
             size = Vector3.one * buildingInfoSerialized.size;
 
             List<Vector2Int> positions = new List<Vector2Int>();
@@ -47,7 +50,6 @@ public class StatsEnnemyBuildingComponent : MonoBehaviour
             {
                 for (int z = 0; z < size.z; ++z)
                 {
-                    Debug.Log("test");
                     positions.Add(new Vector2Int(x + Mathf.FloorToInt(objectPosition.x) + (int)size.x % 2 + gridSize.x / 2,
                         z + Mathf.FloorToInt(objectPosition.z) + (int)size.z % 2 + gridSize.y / 2));
                 }
@@ -68,18 +70,13 @@ public class StatsEnnemyBuildingComponent : MonoBehaviour
         /*set the size and the position at a more appropriate location*/
         hpCanvas.transform.localScale = new Vector3(1 / buildingInfoSerialized.size,
             1 / buildingInfoSerialized.size, 1 / buildingInfoSerialized.size);
-        hpCanvas.transform.position = building.position + new Vector3(0, /*hitbox.localScale.y + 2*/0, 0);
+        hpCanvas.transform.position = building.position + new Vector3(0, /*hitbox.localScale.y + 2*/building.GetComponent<BoxCollider>().size.y + 1, 0);
+
+        cameraControlComponent.AddRotatingUI(hpCanvas.GetComponent<activateOnRotation>());
 
         BuildingStatsComponent buildingStat = building.gameObject.AddComponent<BuildingStatsComponent>();
 
         building.GetComponent<IActivateEnnemy>();
-
-        building.gameObject.layer = LayerMask.NameToLayer("building");
         buildingStat.ActivateBuilding(buildingInfoSerialized);
-    }
-
-    void SetBasesStats()
-    {
-
     }
 }

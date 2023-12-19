@@ -61,8 +61,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &4788279666730507616
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,7 +74,6 @@ GameObject:
   - component: {fileID: 7503473129657350136}
   - component: {fileID: 4607107733430501832}
   - component: {fileID: 2080829518854281253}
-  - component: {fileID: 8863538700641941455}
   m_Layer: 11
   m_Name: hitbox
   m_TagString: Untagged
@@ -147,16 +146,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8863538700641941455
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4788279666730507616}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
