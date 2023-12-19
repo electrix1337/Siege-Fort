@@ -65,6 +65,11 @@ public class CameraControlComponent : MonoBehaviour
         activateOnRotation.ActivateOnRotation(gameObject.transform.rotation);
     }
 
+    public void RemoveRotatingUI(activateOnRotation activateOnRotation)
+    {
+        activateOnRotationList.Remove(activateOnRotation);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -86,7 +91,6 @@ public class CameraControlComponent : MonoBehaviour
             {
                 activateOnRotationList[i].ActivateOnRotation(gameObject.transform.rotation);
             }
-
         }
 
         float time = Time.deltaTime;

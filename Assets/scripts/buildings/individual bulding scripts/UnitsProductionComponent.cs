@@ -62,7 +62,6 @@ public class UnitsProductionComponent : MonoBehaviour, IActivateBuilding, IActiv
 
     public void StartSpawning()
     {
-        Debug.Log("salut");
         teamUnitMask = LayerMask.NameToLayer("enemie");
         unitFolder = GameObject.Find("map/teams/ennemy/units").transform;
         canSpawn = true;

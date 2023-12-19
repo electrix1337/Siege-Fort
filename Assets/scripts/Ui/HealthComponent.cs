@@ -6,9 +6,15 @@ using UnityEngine;
 public class HealthComponent : MonoBehaviour
 {
     public int health { get; private set; }
+    CameraControlComponent camera;
 
     RectTransform healthBar;
     int maxHealth;
+
+    private void Start()
+    {
+        camera = GameObject.Find(GameObjectPath.GetPath("Camera")).GetComponent<CameraControlComponent>();
+    }
 
     //damage the building
     //return true if the entity is alive
@@ -19,6 +25,15 @@ public class HealthComponent : MonoBehaviour
         if (health <= 0)
         {
             //Destroy(gameObject.transform.parent.gameObject);
+            for (int i = 0; i < gameObject.transform.childCount; ++i)
+            {
+                Transform child = gameObject.transform.GetChild(i);
+                if (child.name == "healthCanvas(Clone)")
+                {
+                    camera.RemoveRotatingUI(child.gameObject.GetComponent<activateOnRotation>());
+                    break;
+                }
+            }
             Destroy(gameObject);
             return false;
         }
