@@ -7,11 +7,14 @@ public class GameOver : MonoBehaviour
 {
     [SerializeField] Texture2D cursorTexture;
 
-    private void Awake()
+    private void Start()
     {
-        Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
+        Application.Quit();
     }
-
+    public void LoadSceneSelect()
+    {
+        SceneManager.LoadScene(1);
+    }
     public void BackToMenu()
     {
         SceneManager.LoadScene(0);
