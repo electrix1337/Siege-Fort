@@ -39,7 +39,7 @@ public class AttackNode : Node
                     Debug.Log("end game");
                     return NodeState.SUCCESS;
                 }
-                ai.currentTarget.gameObject.GetComponent<HealthComponent>().TakeDamage(10);
+                ai.currentTarget.gameObject.GetComponent<HealthComponent>().TakeDamage(5);
                 return NodeState.SUCCESS;
             }
         }

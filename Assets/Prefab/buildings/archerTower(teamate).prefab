@@ -97,7 +97,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3080366662444226543, guid: 1759ccbff09c5ee449beedc4b46e2d23, type: 3}
       propertyPath: Firerate
-      value: 15
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3116713302746284249, guid: 1759ccbff09c5ee449beedc4b46e2d23, type: 3}
       propertyPath: m_Materials.Array.data[0]
