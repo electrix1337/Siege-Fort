@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f3254345e7eafc545894c51c6c39bd8f, type: 2}
+  - {fileID: 2100000, guid: fa6ae3d9becaf6244b7d2f78f6c710f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -163,4 +163,3 @@ MonoBehaviour:
   costPerSpawn:
   - name: stone
     cost: 8
-  unitFolder: {fileID: 0}
