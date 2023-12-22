@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
@@ -20,6 +21,13 @@ public class UiBuildingComponent : MonoBehaviour
     [SerializeField] GameObject triggerManager;
     [SerializeField] GameObject buildingSelection;
     [SerializeField] GameObject prefabBuildingUI;
+    [SerializeField] GameObject ressourceText;
+    [SerializeField] GameObject ressourceCanvas;
+
+    Transform ressourceFrame;
+    RectTransform ressourceRectTransform;
+
+    ChangeTextComponent changeText;
 
     TriggerManagerComponent triggerComponent;
     BuildingInfoComponent buildingInfo;
@@ -34,13 +42,18 @@ public class UiBuildingComponent : MonoBehaviour
 
         sectionRect = sectionContainer.GetComponent<Image>().rectTransform;
 
+        //set the text class for the mouse ui
+        changeText = ressourceText.GetComponent<ChangeTextComponent>();
+
+        //ressource frame
+        ressourceFrame = ressourceCanvas.transform.GetChild(0);
+        ressourceRectTransform = ressourceFrame.GetComponent<RectTransform>();
+
         //set all active section in a list of section unlocked
         List<BuildingSectionSerialized> sectionsUnlock = buildingInfo.GetActiveBuildingSection();
 
         SetSections(sectionsUnlock);
         sectionContainer.SetActive(false);
-
-        Button button = buildingButton.GetComponent<Button>();
     }
 
     //set trigger on a new section and on other section that are there
@@ -192,6 +205,32 @@ public class UiBuildingComponent : MonoBehaviour
                 string buildingButton = buildingName + "_button";
                 clone.GetComponent<Button>().onClick.AddListener(() =>
                      clickEventComponent.OnClick(buildingButton));
+
+
+                int i1 = i;
+                EventTrigger eventTrigger = clone.GetComponent<EventTrigger>();
+                EventTrigger.Entry mouseOver = new EventTrigger.Entry()
+                {
+                    eventID = EventTriggerType.PointerEnter
+                };
+                mouseOver.callback.AddListener((BaseEventData) => {
+                    ressourceCanvas.SetActive(true);
+                    changeText.ChangeText(buildings[i1]);
+                    ressourceFrame.transform.position = Input.mousePosition + new Vector3(ressourceRectTransform.rect.width / 2 + 5, ressourceRectTransform.rect.height / 2 + 5, 0);
+                });
+
+                EventTrigger.Entry mouseNotOver = new EventTrigger.Entry()
+                {
+                    eventID = EventTriggerType.PointerExit
+                };
+                mouseNotOver.callback.AddListener((BaseEventData) => {
+                    ressourceCanvas.SetActive(false);
+                });
+
+                eventTrigger.triggers.Add(mouseNotOver);
+                eventTrigger.triggers.Add(mouseOver);
+
+                //eventTrigger.OnPointerEnter
             }
         }
     }
